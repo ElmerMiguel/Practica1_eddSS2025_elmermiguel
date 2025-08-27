@@ -12,14 +12,14 @@ private:
     bool juegoTerminado;
 
 public:
-    Juego(int filas, int columnas);  // MODIFICADO: ahora acepta filas y columnas
+    Juego(int filas, int columnas);  
     
     // Regla de los 3
     ~Juego();
     Juego(const Juego& otro);
     Juego& operator=(const Juego& otro);
     
-    void agregarJugador(const Jugador& jugador);  // MODIFICADO: ahora acepta referencia
+    void agregarJugador(const Jugador& jugador);  
     void iniciar();
     void mostrarEstado();
     bool verificarFinJuego();

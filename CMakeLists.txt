@@ -19,4 +19,6 @@ add_executable(Practica1Edd main.cpp
         PTablero/Celda.cpp
         PTablero/Celda.h
         PTablero/Tablero.cpp
-        PTablero/Tablero.h)
+        PTablero/Tablero.h
+        Objetos/GestorPowerUps.cpp
+        Objetos/GestorPowerUps.h)

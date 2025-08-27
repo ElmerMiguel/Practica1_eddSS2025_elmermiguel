@@ -81,12 +81,12 @@ clean: CMakeFiles/Practica1Edd.dir/clean
 CMakeFiles/Practica1Edd.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target Practica1Edd"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target Practica1Edd"
 .PHONY : CMakeFiles/Practica1Edd.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Practica1Edd.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/cmake-build-debug/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/cmake-build-debug/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Practica1Edd.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Practica1Edd.dir/rule

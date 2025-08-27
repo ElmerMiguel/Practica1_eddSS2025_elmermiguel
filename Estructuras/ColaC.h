@@ -32,7 +32,7 @@ public:
     void mostrar();
     int getTamaño() const { return tamaño; }
     
-    // Métodos específicos para el juego
+  
     void moverAlFrente(Jugador* jugador);  // Para trampa secreta
     void moverAlFinal(Jugador* jugador);   // Para pase
 };

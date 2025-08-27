@@ -225,6 +225,30 @@ MenuJuego/Juego.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.s
 .PHONY : MenuJuego/Juego.cpp.s
 
+Objetos/GestorPowerUps.o: Objetos/GestorPowerUps.cpp.o
+.PHONY : Objetos/GestorPowerUps.o
+
+# target to build an object file
+Objetos/GestorPowerUps.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/Objetos/GestorPowerUps.cpp.o
+.PHONY : Objetos/GestorPowerUps.cpp.o
+
+Objetos/GestorPowerUps.i: Objetos/GestorPowerUps.cpp.i
+.PHONY : Objetos/GestorPowerUps.i
+
+# target to preprocess a source file
+Objetos/GestorPowerUps.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/Objetos/GestorPowerUps.cpp.i
+.PHONY : Objetos/GestorPowerUps.cpp.i
+
+Objetos/GestorPowerUps.s: Objetos/GestorPowerUps.cpp.s
+.PHONY : Objetos/GestorPowerUps.s
+
+# target to generate assembly for a file
+Objetos/GestorPowerUps.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/Objetos/GestorPowerUps.cpp.s
+.PHONY : Objetos/GestorPowerUps.cpp.s
+
 Objetos/Jugador.o: Objetos/Jugador.cpp.o
 .PHONY : Objetos/Jugador.o
 
@@ -366,6 +390,9 @@ help:
 	@echo "... MenuJuego/Juego.o"
 	@echo "... MenuJuego/Juego.i"
 	@echo "... MenuJuego/Juego.s"
+	@echo "... Objetos/GestorPowerUps.o"
+	@echo "... Objetos/GestorPowerUps.i"
+	@echo "... Objetos/GestorPowerUps.s"
 	@echo "... Objetos/Jugador.o"
 	@echo "... Objetos/Jugador.i"
 	@echo "... Objetos/Jugador.s"

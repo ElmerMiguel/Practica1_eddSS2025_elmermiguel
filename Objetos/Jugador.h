@@ -7,12 +7,12 @@
 class Jugador {
 private:
     std::string nombre;
-    char inicial;  // NUEVO: inicial del jugador
+    char inicial;  
     int puntos;
     PilaPower* poderes;
 
 public:
-    Jugador(const std::string& nombre, char inicial);  // MODIFICADO: ahora acepta inicial
+    Jugador(const std::string& nombre, char inicial);  
     
     // Regla de los 3
     ~Jugador();
@@ -21,7 +21,7 @@ public:
     
     // Getters y setters
     std::string getNombre() const { return nombre; }
-    char getInicial() const { return inicial; }  // NUEVO
+    char getInicial() const { return inicial; }  
     int getPuntos() const { return puntos; }
     void setPuntos(int p) { puntos = p; }
     void incrementarPuntos() { puntos++; }

@@ -16,15 +16,15 @@ PilaPower::~PilaPower() {
     tope = nullptr;
 }
 
-// COPY CONSTRUCTOR - Crea copia profunda
+// COP CONSTRUCTOR
 PilaPower::PilaPower(const PilaPower& otra) : tope(nullptr), tamaño(0) {
     if (otra.tope == nullptr) return;
     
-    // Necesitamos invertir para mantener el orden
+    // Ivertir para el orden
     NodoPila* temp = nullptr;
     NodoPila* actual = otra.tope;
     
-    // Crear una pila temporal invertida
+    // pila temporal invertida
     while (actual != nullptr) {
         PowerUp* nuevoPower = new PowerUp(*actual->powerUp);  // Copy constructor de PowerUp
         NodoPila* nuevoNodo = new NodoPila(nuevoPower);
@@ -33,7 +33,7 @@ PilaPower::PilaPower(const PilaPower& otra) : tope(nullptr), tamaño(0) {
         actual = actual->siguiente;
     }
     
-    // Ahora invertir de vuelta para mantener orden original
+    // volver a invertir para orden original
     while (temp != nullptr) {
         NodoPila* siguiente = temp->siguiente;
         temp->siguiente = tope;
@@ -43,7 +43,7 @@ PilaPower::PilaPower(const PilaPower& otra) : tope(nullptr), tamaño(0) {
     }
 }
 
-// ASSIGNMENT OPERATOR
+// ASIG OPERATOR
 PilaPower& PilaPower::operator=(const PilaPower& otra) {
     if (this != &otra) {  // Evitar auto-asignación
         // Limpiar memoria actual
@@ -59,13 +59,13 @@ PilaPower& PilaPower::operator=(const PilaPower& otra) {
         tope = nullptr;
         tamaño = 0;
         
-        // Copiar usando el mismo método del copy constructor
+        //copiar
         if (otra.tope != nullptr) {
-            // Necesitamos invertir para mantener el orden
+            // invertir para el orden
             NodoPila* temp = nullptr;
             NodoPila* actual = otra.tope;
             
-            // Crear una pila temporal invertida
+            // pila temporal
             while (actual != nullptr) {
                 PowerUp* nuevoPower = new PowerUp(*actual->powerUp);
                 NodoPila* nuevoNodo = new NodoPila(nuevoPower);
@@ -74,7 +74,7 @@ PilaPower& PilaPower::operator=(const PilaPower& otra) {
                 actual = actual->siguiente;
             }
             
-            // Ahora invertir de vuelta para mantener orden original
+            // invertir de vuelta 
             while (temp != nullptr) {
                 NodoPila* siguiente = temp->siguiente;
                 temp->siguiente = tope;

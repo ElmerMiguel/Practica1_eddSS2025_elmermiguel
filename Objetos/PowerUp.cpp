@@ -1,60 +1,117 @@
 #include "PowerUp.h"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
-PowerUp::PowerUp(const string& tipo, const string& descripcion) 
-    : tipo(tipo), descripcion(descripcion), usado(false) {}
+PowerUp::PowerUp(TipoPowerUp tipo) : tipo(tipo), usado(false), activo(false), 
+                                     filaEfecto(-1), columnaEfecto(-1), ladoEfecto(' ') {
+    // Inicializar simb y descrip segun el tipo
+    switch(tipo) {
+        case DOBLE_LINEA:
+            simbolo = "DL";
+            descripcion = "Permite colocar dos líneas consecutivas";
+            break;
+        case TRAMPA_SECRETA:
+            simbolo = "TS";
+            descripcion = "Línea trampa que roba puntos al enemigo";
+            break;
+        case BLOQUEO:
+            simbolo = "BL";
+            descripcion = "Bloquea una línea durante una ronda";
+            break;
+        case PASE:
+            simbolo = "PS";
+            descripcion = "Pasa turno y va al final de la cola";
+            break;
+        case LLAVE_SECRETA:
+            simbolo = "LS";
+            descripcion = "Ignora un bloqueo existente";
+            break;
+        case ESCURRIDIZO:
+            simbolo = "ES";
+            descripcion = "Protege contra trampas por una ronda";
+            break;
+        case UNION_FUTURO:
+            simbolo = "UF";
+            descripcion = "Doble punto si el mismo jugador completa después";
+            break;
+        case A_QUE_COSTO:
+            simbolo = "AC";
+            descripcion = "Punto para quien corresponde, casilla para quien puso línea";
+            break;
+        case NUEVAS_TIERRAS:
+            simbolo = "NT";
+            descripcion = "Expande el tablero hacia afuera";
+            break;
+        case EXPLOSIVOS:
+            simbolo = "EX";
+            descripcion = "Elimina un punto del mapa";
+            break;
+    }
+}
 
 // COPY CONSTRUCTOR
 PowerUp::PowerUp(const PowerUp& otro) 
-    : tipo(otro.tipo), descripcion(otro.descripcion), usado(otro.usado) {}
+    : tipo(otro.tipo), simbolo(otro.simbolo), descripcion(otro.descripcion),
+      usado(otro.usado), activo(otro.activo), filaEfecto(otro.filaEfecto),
+      columnaEfecto(otro.columnaEfecto), ladoEfecto(otro.ladoEfecto) {}
 
-// ASSIGNMENT OPERATOR
+// ASSIG OPERATOR
 PowerUp& PowerUp::operator=(const PowerUp& otro) {
-    if (this != &otro) {  // Evitar auto-asignación
+    if (this != &otro) {
         tipo = otro.tipo;
+        simbolo = otro.simbolo;
         descripcion = otro.descripcion;
         usado = otro.usado;
+        activo = otro.activo;
+        filaEfecto = otro.filaEfecto;
+        columnaEfecto = otro.columnaEfecto;
+        ladoEfecto = otro.ladoEfecto;
     }
     return *this;
 }
 
+string PowerUp::getTipoString() const {
+    return simbolo;
+}
+
+void PowerUp::setEfecto(int fila, int columna, char lado) {
+    filaEfecto = fila;
+    columnaEfecto = columna;
+    ladoEfecto = lado;
+    activo = true;
+}
+
 void PowerUp::usar() {
     usado = true;
-    cout << "PowerUp '" << tipo << "' usado!" << endl;
+    cout << "PowerUp '" << simbolo << "' activado: " << descripcion << endl;
 }
 
 void PowerUp::mostrarInfo() const {
-    cout << "PowerUp: " << tipo;
-    if (!descripcion.empty()) {
-        cout << " - " << descripcion;
-    }
-    cout << " [" << (usado ? "USADO" : "DISPONIBLE") << "]" << endl;
+    cout << "[" << simbolo << "] " << descripcion;
+    if (usado) cout << " (USADO)";
+    if (activo) cout << " (ACTIVO)";
+    cout << endl;
 }
 
-// Factory method para crear los 10 PowerUps del enunciado
-PowerUp* PowerUp::crearPowerUp(const string& tipo) {
-    if (tipo == "PAS") {
-        return new PowerUp("PAS", "Pase: Salta tu turno");
-    } else if (tipo == "RET") {
-        return new PowerUp("RET", "Retroceso: Regresa al jugador anterior");
-    } else if (tipo == "RAP") {
-        return new PowerUp("RAP", "Rapidez: Otro turno");
-    } else if (tipo == "TLT") {
-        return new PowerUp("TLT", "Teletransporte: Mueve linea");
-    } else if (tipo == "VIS") {
-        return new PowerUp("VIS", "Vision: Ve proximos 3 PowerUps");
-    } else if (tipo == "ES") {
-        return new PowerUp("ES", "Espejo Secreto: Trampa detectada");
-    } else if (tipo == "UF") {
-        return new PowerUp("UF", "Union a Futuro: Doble punto futuro");
-    } else if (tipo == "AC") {
-        return new PowerUp("AC", "A Que Costo: Punto pero casilla ajena");
-    } else if (tipo == "NT") {
-        return new PowerUp("NT", "Nuevas Tierras: Expande tablero");
-    } else if (tipo == "EX") {
-        return new PowerUp("EX", "Explosivos: Elimina punto");
-    } else {
-        return new PowerUp("UNKNOWN", "PowerUp desconocido");
+bool PowerUp::afectaLinea(int fila, int columna, char lado) const {
+    if (!activo) return false;
+    return (filaEfecto == fila && columnaEfecto == columna && ladoEfecto == lado);
+}
+
+// FACTORY METHODS
+PowerUp* PowerUp::crearPowerUpAleatorio() {
+    static bool semillaInicializada = false;
+    if (!semillaInicializada) {
+        srand(time(nullptr));
+        semillaInicializada = true;
     }
+    
+    TipoPowerUp tipoAleatorio = static_cast<TipoPowerUp>(rand() % 10);
+    return new PowerUp(tipoAleatorio);
+}
+
+PowerUp* PowerUp::crearPowerUp(TipoPowerUp tipo) {
+    return new PowerUp(tipo);
 }

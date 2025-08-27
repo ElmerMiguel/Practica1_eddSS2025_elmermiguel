@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Practica1Edd.dir/Estructuras/PilaPower.cpp.o.d"
   "CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.o"
   "CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.o.d"
+  "CMakeFiles/Practica1Edd.dir/Objetos/GestorPowerUps.cpp.o"
+  "CMakeFiles/Practica1Edd.dir/Objetos/GestorPowerUps.cpp.o.d"
   "CMakeFiles/Practica1Edd.dir/Objetos/Jugador.cpp.o"
   "CMakeFiles/Practica1Edd.dir/Objetos/Jugador.cpp.o.d"
   "CMakeFiles/Practica1Edd.dir/Objetos/PowerUp.cpp.o"

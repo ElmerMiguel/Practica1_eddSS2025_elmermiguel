@@ -40,7 +40,6 @@ public:
     void setPropietario(char prop) { propietario = prop; }
     void setPowerUp(const std::string& power) { powerUp = power; }
     
-    // Métodos útiles
     bool estaCompleta() const;
     void mostrarInfo() const;
 };

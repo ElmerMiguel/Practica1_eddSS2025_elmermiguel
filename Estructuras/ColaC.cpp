@@ -4,13 +4,13 @@ using namespace std;
 
 ColaC::ColaC() : frente(nullptr), final(nullptr), tamaño(0) {}
 
-// DESTRUCTOR - Libera TODA la memoria
+// DESTRUCTOR 
 ColaC::~ColaC() {
     while (!estaVacia()) {
         NodoCola* temp = frente;
         frente = frente->siguiente;
-        // NO eliminamos el jugador porque puede ser usado en otros lados
-        // Solo eliminamos el nodo
+        // NO elim jdr pq puede ser usado en otros lados
+        // Solo elim el nodo
         delete temp;
         tamaño--;
     }
@@ -18,16 +18,16 @@ ColaC::~ColaC() {
     final = nullptr;
 }
 
-// COPY CONSTRUCTOR - Crea copia profunda
+// cop constro
 ColaC::ColaC(const ColaC& otra) : frente(nullptr), final(nullptr), tamaño(0) {
     NodoCola* actual = otra.frente;
     while (actual != nullptr) {
-        encolar(actual->jugador);  // Reutilizamos el mismo jugador (referencia)
+        encolar(actual->jugador);  // ref a jug 
         actual = actual->siguiente;
     }
 }
 
-// ASSIGNMENT OPERATOR
+// ASIG OPERATOR
 ColaC& ColaC::operator=(const ColaC& otra) {
     if (this != &otra) {  // Evitar auto-asignación
         // Limpiar memoria actual
@@ -105,7 +105,7 @@ void ColaC::mostrar() {
     cout << "(circular)" << endl;
 }
 
-// NUEVOS MÉTODOS para PowerUps
+// MTDS POWER UP
 void ColaC::moverAlFrente(Jugador* jugador) {
     if (estaVacia() || frente->jugador == jugador) return;
     
@@ -135,7 +135,7 @@ void ColaC::moverAlFrente(Jugador* jugador) {
 void ColaC::moverAlFinal(Jugador* jugador) {
     if (estaVacia() || final->jugador == jugador) return;
     
-    // Simplemente desencolamos y encolamos
+    
     if (frente->jugador == jugador) {
         Jugador* j = desencolar();
         encolar(j);

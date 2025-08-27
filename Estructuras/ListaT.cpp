@@ -4,7 +4,7 @@ using namespace std;
 
 ListaT::ListaT() : cabeza(nullptr), tamaño(0) {}
 
-// DESTRUCTOR - Libera TODA la memoria
+// DESTRUCTOR LIB MEMORIA COMPLETA
 ListaT::~ListaT() {
     NodoLista* actual = cabeza;
     while (actual != nullptr) {
@@ -16,13 +16,13 @@ ListaT::~ListaT() {
     cabeza = nullptr;
 }
 
-// COPY CONSTRUCTOR - Crea copia profunda
+// COP PROF CONSTRUCTOR
 ListaT::ListaT(const ListaT& otra) : cabeza(nullptr), tamaño(0) {
     NodoLista* actual = otra.cabeza;
     while (actual != nullptr) {
-        // Crear nueva celda copiando los datos
+        
         Celda* nuevaCelda = new Celda(actual->celda->getFila(), actual->celda->getColumna());
-        // Copiar el estado de la celda original
+        
         nuevaCelda->setLadoSuperior(actual->celda->getLadoSuperior());
         nuevaCelda->setLadoInferior(actual->celda->getLadoInferior());
         nuevaCelda->setLadoIzquierdo(actual->celda->getLadoIzquierdo());
@@ -35,7 +35,7 @@ ListaT::ListaT(const ListaT& otra) : cabeza(nullptr), tamaño(0) {
     }
 }
 
-// ASSIGNMENT OPERATOR
+// ASIG OPERATOR
 ListaT& ListaT::operator=(const ListaT& otra) {
     if (this != &otra) {  // Evitar auto-asignación
         // Limpiar memoria actual
