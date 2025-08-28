@@ -77,7 +77,6 @@ void Jugador::mostrarInfo() const {
     cout << endl;
 }
 
-// NUEVOS MÉTODOS
 
 void Jugador::restarPuntos(int cantidad) {
     puntos -= cantidad;

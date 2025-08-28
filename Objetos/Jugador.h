@@ -15,7 +15,7 @@ private:
     bool protegidoContraTrampas;
     int turnosEscurridizoRestantes;
 
-    // NUEVOS: Para los 7 niveles de desempate
+  
     int cuadradosPorFila[10];     // Máximo 10 filas
     int cuadradosPorColumna[10];  // Máximo 10 columnas
     int totalCuadrados;
@@ -45,13 +45,13 @@ public:
     
     void mostrarInfo() const;
 
-    // NUEVOS: Sistema de puntuación avanzado
+ 
     void restarPuntos(int cantidad = 1);
     void duplicarUltimoPunto();
     bool tieneEfectoEscurridizo() const;
     void activarEscurridizo(int turnos = 3);
 
-    // NUEVOS: Para los 7 niveles de desempate
+
     void registrarCuadrado(int fila, int columna);
     void registrarPowerUpUsado();
     int getCuadradosFila(int fila) const;

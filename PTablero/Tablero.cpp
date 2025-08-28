@@ -6,15 +6,15 @@ using namespace std;
 
 Tablero::Tablero(int filas, int columnas) : filas(filas), columnas(columnas) {
     celdas = new ListaT();
-    gestorPowers = new GestorPowerUps();  // NUEVO
+    gestorPowers = new GestorPowerUps();  
     inicializar();
-    generarPowerUpsAleatorios();  // NUEVO
+    generarPowerUpsAleatorios();  
 }
 
 // DESTRUCTOR
 Tablero::~Tablero() {
     delete celdas;
-    delete gestorPowers;  // NUEVO
+    delete gestorPowers; 
     celdas = nullptr;
     gestorPowers = nullptr;
 }
@@ -22,7 +22,7 @@ Tablero::~Tablero() {
 // COPY CONSTRUCTOR
 Tablero::Tablero(const Tablero& otro) : filas(otro.filas), columnas(otro.columnas) {
     celdas = new ListaT(*otro.celdas);
-    gestorPowers = new GestorPowerUps(*otro.gestorPowers);  // NUEVO (necesitarás implementar copy constructor en GestorPowerUps)
+    gestorPowers = new GestorPowerUps(*otro.gestorPowers); 
 }
 
 // ASSIGNMENT OPERATOR
@@ -32,10 +32,10 @@ Tablero& Tablero::operator=(const Tablero& otro) {
         columnas = otro.columnas;
         
         delete celdas;
-        delete gestorPowers;  // NUEVO
+        delete gestorPowers; 
         
         celdas = new ListaT(*otro.celdas);
-        gestorPowers = new GestorPowerUps(*otro.gestorPowers);  // NUEVO
+        gestorPowers = new GestorPowerUps(*otro.gestorPowers);  
     }
     return *this;
 }
@@ -128,7 +128,7 @@ bool Tablero::marcarLinea(int fila, int columna, char lado, char jugador) {
         return false;
     }
     
-    // NUEVO: Marcar la línea en AMBAS celdas adyacentes
+    // Marcar la lnea en ambas celdas adyacentes
     bool marcadoExitoso = false;
     
     switch (lado) {
