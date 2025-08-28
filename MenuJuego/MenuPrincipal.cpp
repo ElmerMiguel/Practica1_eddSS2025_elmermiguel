@@ -67,13 +67,13 @@ void MenuPrincipal::configurarJuego() {
     
     // Configurar número de jugadores
     do {
-        cout << "Ingresa el número de jugadores (2-6): ";
+        cout << "Ingresa el número de jugadores (2-4): ";
         cin >> numJugadores;
         
-        if (numJugadores < 2 || numJugadores > 6) {
-            cout << "❌ Número de jugadores debe estar entre 2 y 6." << endl;
+        if (numJugadores < 2 || numJugadores > 4) {
+            cout << "❌ Número de jugadores debe estar entre 2 y 4." << endl;
         }
-    } while (numJugadores < 2 || numJugadores > 6);
+    } while (numJugadores < 2 || numJugadores > 4);
     
     cout << "\n✅ Configuración guardada:" << endl;
     cout << "   Tablero: " << filas << "x" << columnas << endl;
@@ -84,24 +84,43 @@ void MenuPrincipal::configurarJuego() {
 void MenuPrincipal::configurarJugadores(Juego& juego) {
     cout << "\n═══════ CONFIGURACIÓN DE JUGADORES ═══════" << endl;
     
-    ArregloT<char> inicialesUsadas;  // CAMBIADO: usar nuestro arreglo
+    ArregloT<char> inicialesUsadas;  
     
-    for (int i = 1; i <= numJugadores; i++) {
-        string nombre;
-        cout << "Nombre del jugador " << i << ": ";
-        cin.ignore();
-        getline(cin, nombre);
+    for (int i = 0; i < numJugadores; i++) {
+    string nombre;
+    char inicial;
+    bool inicialValida = false;
+    
+    while (!inicialValida) {
+        cout << "Nombre del jugador " << (i + 1) << ": ";
         
-        // Asignar inicial única
-        char inicial = asignarInicialUnica(nombre, inicialesUsadas);
-        inicialesUsadas.agregar(inicial);  // CAMBIADO: usar nuestro método
+        // ARREGLO CLAVE: Limpiar buffer antes de leer nombre
+        if (i > 0 || cin.peek() == '\n') {
+            cin.ignore();
+        }
         
-        cout << "   → " << nombre << " tendrá la inicial '" << inicial << "'" << endl;
+        getline(cin, nombre); 
         
-      
-        Jugador nuevoJugador(nombre, inicial);
-        juego.agregarJugador(nuevoJugador);
+        if (nombre.empty()) {
+            cout << "❌ El nombre no puede estar vacío." << endl;
+            continue;
+        }
+        
+        inicial = toupper(nombre[0]);
+        
+        
+        inicialValida = true;
+        
+        
+        if (inicialValida) {
+            cout << "   → " << nombre << " tendrá la inicial '" << inicial << "'" << endl;
+            
+            Jugador nuevoJugador(nombre, inicial);
+            juego.agregarJugador(nuevoJugador); 
+            break;
+        }
     }
+}
     
     cout << "\n✅ Todos los jugadores configurados!" << endl;
 }
@@ -174,4 +193,39 @@ char MenuPrincipal::asignarInicialUnica(const string& nombre, ArregloT<char>& in
     
     // Fallback (muy raro que pase)
     return '?';
+}
+
+void MenuPrincipal::configurarTablero() {
+    cout << "\n═══════ CONFIGURACIÓN DEL TABLERO ═══════" << endl;
+    
+    validarEntradaNumerica(filas, 3, 8, "Ingrese número de filas (3-8): ");
+    validarEntradaNumerica(columnas, 3, 8, "Ingrese número de columnas (3-8): ");
+    
+    cout << "✅ Tablero configurado: " << filas << "x" << columnas << endl;
+    
+    // Crear juego con las nuevas dimensiones
+    if (juego != nullptr) {
+        delete juego;
+    }
+    juego = new Juego(filas, columnas);
+}
+
+void MenuPrincipal::validarEntradaNumerica(int& valor, int min, int max, const std::string& mensaje) {
+    bool entradaValida = false;
+    
+    while (!entradaValida) {
+        cout << mensaje;
+        
+        if (cin >> valor) {
+            if (valor >= min && valor <= max) {
+                entradaValida = true;
+            } else {
+                cout << "❌ Error: Debe ser entre " << min << " y " << max << "." << endl;
+            }
+        } else {
+            cout << "❌ Error: Ingrese un número válido." << endl;
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
+    }
 }

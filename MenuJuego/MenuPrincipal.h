@@ -6,9 +6,12 @@
 
 class MenuPrincipal {
 private:
-    int filas;
-    int columnas;
-    int numJugadores;
+    int filas, columnas, numJugadores;
+    Juego* juego;
+    
+    // AGREGAR esta declaración:
+    void configurarTablero();
+    void validarEntradaNumerica(int& valor, int min, int max, const std::string& mensaje);
     
 public:
     MenuPrincipal();

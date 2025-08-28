@@ -65,31 +65,103 @@ void Tablero::generarPowerUpsAleatorios() {
     cout << "PowerUps generados aleatoriamente en el tablero!" << endl;
 }
 
+
 void Tablero::mostrarTablero() {
-    cout << "\n=== TABLERO " << filas << "x" << columnas << " ===" << endl;
+    cout << "\n🎮 TABLERO " << filas << "x" << columnas << " 🎮" << endl;
     
-    // Mostrar información de las celdas
+    // === NÚMEROS DE COLUMNA ===
+    cout << "     ";
+    for (int j = 0; j < columnas; j++) {
+        cout << j << "     ";
+    }
+    cout << endl;
+
+    // === LÍNEA SUPERIOR DE NODOS ===
+    cout << "   ";
+    for (int j = 0; j < columnas; j++) {
+        cout << "+";
+        
+        // Línea horizontal hacia la derecha (solo si hay línea marcada)
+        if (j < columnas - 1) {
+            // Verificar si hay línea horizontal entre columnas j y j+1 en fila 0
+            Celda* celda = obtenerCelda(0, j);
+            if (celda != nullptr && celda->getLadoDerecho()) {
+                cout << "-----";
+            } else {
+                cout << "     ";
+            }
+        }
+    }
+    cout << endl;
+
+    // === FILAS CON NODOS Y CONTENIDO ===
     for (int i = 0; i < filas; i++) {
+        // Número de fila + nodos con líneas verticales
+        cout << i << " ";
+        
         for (int j = 0; j < columnas; j++) {
-            Celda* celda = obtenerCelda(i, j);
-            if (celda != nullptr) {
-                cout << "(" << i << "," << j << ")";
-                if (!celda->getPowerUp().empty()) {
-                    cout << "[" << celda->getPowerUp() << "]";
+            cout << "+";
+            
+            // Línea horizontal hacia la derecha
+            if (j < columnas - 1) {
+                Celda* celda = obtenerCelda(i, j);
+                if (celda != nullptr && celda->getLadoDerecho()) {
+                    cout << "-----";
+                } else {
+                    cout << "     ";
                 }
-                if (celda->getPropietario() != ' ') {
-                    cout << "{" << celda->getPropietario() << "}";
-                }
-                cout << " ";
             }
         }
         cout << endl;
-    }
-    
-    // Mostrar efectos activos
-    gestorPowers->mostrarEfectosActivos();
-}
 
+        // === LÍNEA CON CONTENIDO DE CELDAS ===
+        if (i < filas) {
+            // Líneas verticales y contenido
+            cout << "  ";
+            
+            for (int j = 0; j < columnas; j++) {
+                // Línea vertical hacia abajo
+                Celda* celda = obtenerCelda(i, j);
+                if (celda != nullptr && celda->getLadoInferior()) {
+                    cout << "|";
+                } else {
+                    cout << " ";
+                }
+
+                // Contenido de la celda (5 espacios)
+                if (j < columnas) {
+                    if (celda != nullptr) {
+                        char propietario = celda->getPropietario();
+                        string powerUp = celda->getPowerUp();
+                        
+                        if (propietario != ' ') {
+                            cout << "  " << propietario << "  ";
+                        } else if (!powerUp.empty() && powerUp != " ") {
+                            if (powerUp.length() >= 2) {
+                                cout << " " << powerUp.substr(0, 2) << " ";
+                            } else {
+                                cout << "  " << powerUp << "  ";
+                            }
+                        } else {
+                            cout << "     ";  // Celda vacía
+                        }
+                    } else {
+                        cout << "     ";
+                    }
+                }
+            }
+            cout << endl;
+            
+            // Línea en blanco para separación
+            if (i < filas - 1) {
+                cout << endl;
+            }
+        }
+    }
+
+    cout << "\n💡 Leyenda: Letras = Jugadores | Símbolos = PowerUps" << endl;
+    cout << "🎯 Controles: W=↑ A=← S=↓ D=→" << endl;
+}
 Celda* Tablero::obtenerCelda(int fila, int columna) {
     return celdas->obtener(fila, columna);
 }
@@ -97,107 +169,61 @@ Celda* Tablero::obtenerCelda(int fila, int columna) {
 
 
 bool Tablero::marcarLinea(int fila, int columna, char lado, char jugador) {
-    // Verificar si la línea está bloqueada
-    if (gestorPowers->lineaBloqueada(fila, columna, lado)) {
-        cout << "¡Esta línea está bloqueada!" << endl;
+    // Validar coordenadas
+    if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas) {
+        cout << "❌ Coordenadas fuera de rango." << endl;
         return false;
     }
     
     Celda* celda = obtenerCelda(fila, columna);
-    if (celda == nullptr) return false;
-    
-    // Verificar si ya está marcada
-    bool yaEstaCapturada = false;
-    switch (lado) {
-        case 'S': case 's':
-            yaEstaCapturada = celda->getLadoSuperior();
-            break;
-        case 'I': case 'i':
-            yaEstaCapturada = celda->getLadoInferior();
-            break;
-        case 'L': case 'l':
-            yaEstaCapturada = celda->getLadoIzquierdo();
-            break;
-        case 'D': case 'd':
-            yaEstaCapturada = celda->getLadoDerecho();
-            break;
-    }
-    
-    if (yaEstaCapturada) {
-        cout << "Esta línea ya está marcada!" << endl;
+    if (celda == nullptr) {
+        cout << "❌ Celda no válida." << endl;
         return false;
     }
     
-    // Marcar la lnea en ambas celdas adyacentes
-    bool marcadoExitoso = false;
-    
-    switch (lado) {
-        case 'S': case 's': {
-            // Marcar lado superior de la celda actual
-            celda->setLadoSuperior(true);
-            marcadoExitoso = true;
-            
-            // Marcar lado inferior de la celda de arriba (fila-1)
-            if (fila > 0) {
-                Celda* celdaArriba = obtenerCelda(fila - 1, columna);
-                if (celdaArriba != nullptr) {
-                    celdaArriba->setLadoInferior(true);
-                }
-            }
+    // Verificar que la línea no esté ya marcada
+    bool yaExiste = false;
+    switch(lado) {
+        case 'S': // W -> Superior (línea horizontal arriba)
+            yaExiste = celda->getLadoSuperior();
             break;
-        }
-        case 'I': case 'i': {
-            // Marcar lado inferior de la celda actual
-            celda->setLadoInferior(true);
-            marcadoExitoso = true;
-            
-            // Marcar lado superior de la celda de abajo (fila+1)
-            if (fila < filas - 1) {
-                Celda* celdaAbajo = obtenerCelda(fila + 1, columna);
-                if (celdaAbajo != nullptr) {
-                    celdaAbajo->setLadoSuperior(true);
-                }
-            }
+        case 'I': // S -> Inferior (línea horizontal abajo)
+            yaExiste = celda->getLadoInferior();
             break;
-        }
-        case 'L': case 'l': {
-            // Marcar lado izquierdo de la celda actual
-            celda->setLadoIzquierdo(true);
-            marcadoExitoso = true;
-            
-            // Marcar lado derecho de la celda de la izquierda (columna-1)
-            if (columna > 0) {
-                Celda* celdaIzquierda = obtenerCelda(fila, columna - 1);
-                if (celdaIzquierda != nullptr) {
-                    celdaIzquierda->setLadoDerecho(true);
-                }
-            }
+        case 'L': // A -> Izquierdo (línea vertical izquierda)
+            yaExiste = celda->getLadoIzquierdo();
             break;
-        }
-        case 'D': case 'd': {
-            // Marcar lado derecho de la celda actual
-            celda->setLadoDerecho(true);
-            marcadoExitoso = true;
-            
-            // Marcar lado izquierdo de la celda de la derecha (columna+1)
-            if (columna < columnas - 1) {
-                Celda* celdaDerecha = obtenerCelda(fila, columna + 1);
-                if (celdaDerecha != nullptr) {
-                    celdaDerecha->setLadoIzquierdo(true);
-                }
-            }
+        case 'D': // D -> Derecho (línea vertical derecha)
+            yaExiste = celda->getLadoDerecho();
             break;
-        }
         default:
+            cout << "❌ Lado inválido: " << lado << endl;
             return false;
     }
     
-    // Verificar si hay trampa
-    if (gestorPowers->lineaConTrampa(fila, columna, lado)) {
-        cout << "¡TRAMPA ACTIVADA! El jugador que la puso gana puntos!" << endl;
+    if (yaExiste) {
+        cout << "❌ Esta línea ya está marcada." << endl;
+        return false;
     }
     
-    return marcadoExitoso;
+    // Marcar la línea
+    switch(lado) {
+        case 'S': // W -> Superior
+            celda->setLadoSuperior(true);
+            break;
+        case 'I': // S -> Inferior
+            celda->setLadoInferior(true);
+            break;
+        case 'L': // A -> Izquierdo
+            celda->setLadoIzquierdo(true);
+            break;
+        case 'D': // D -> Derecho
+            celda->setLadoDerecho(true);
+            break;
+    }
+    
+    cout << "✅ Línea marcada en (" << fila << "," << columna << ") lado " << lado << endl;
+    return true;
 }
 
 
@@ -207,7 +233,11 @@ bool Tablero::verificarCuadradoCompleto(int fila, int columna) {
     Celda* celda = obtenerCelda(fila, columna);
     if (celda == nullptr) return false;
     
-    return celda->estaCompleta();
+    // Un cuadrado está completo si tiene los 4 lados
+    return celda->getLadoSuperior() && 
+           celda->getLadoInferior() && 
+           celda->getLadoIzquierdo() && 
+           celda->getLadoDerecho();
 }
 
 bool Tablero::usarPowerUp(PowerUp* powerUp, int fila, int columna, char lado, char jugador) {

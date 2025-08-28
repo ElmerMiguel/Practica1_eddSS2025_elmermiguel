@@ -599,10 +599,11 @@ CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.o: /home/elmermekel/Documentos/C
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.h \
@@ -809,10 +810,11 @@ CMakeFiles/Practica1Edd.dir/MenuJuego/MenuPrincipal.cpp.o: /home/elmermekel/Docu
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.h \
@@ -1807,6 +1809,8 @@ CMakeFiles/Practica1Edd.dir/PTablero/Celda.cpp.o: /home/elmermekel/Documentos/Cl
 
 CMakeFiles/Practica1Edd.dir/PTablero/Tablero.cpp.o: /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Tablero.cpp \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.h \
@@ -2013,10 +2017,11 @@ CMakeFiles/Practica1Edd.dir/main.cpp.o: /home/elmermekel/Documentos/Clion/Practi
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.h \

@@ -242,8 +242,29 @@ case EXPLOSIVOS: {
     {
         int fila, columna;
         char lado;
-        cout << "Ingrese fila, columna y lado (S/I/L/D): ";
-        cin >> fila >> columna >> lado;
+        cout << "\n🎯 Turno de " << actual->getNombre() << " (" << actual->getInicial() << ")" << endl;
+cout << "📍 Selecciona donde colocar tu línea:" << endl;
+cout << "   Fila (0-" << (tablero->getFilas()-1) << "): ";
+cin >> fila;
+cout << "   Columna (0-" << (tablero->getColumnas()-1) << "): ";  
+cin >> columna;
+cout << "   Dirección [W=↑ A=← S=↓ D=→]: ";
+cin >> lado;
+
+
+if (lado == 'w' || lado == 'W') {
+    lado = 'S';  // Superior
+} else if (lado == 's' || lado == 'S') {
+    lado = 'I';  // Inferior
+} else if (lado == 'a' || lado == 'A') {
+    lado = 'L';  // Izquierdo
+} else if (lado == 'd' || lado == 'D') {
+    lado = 'D';  // Derecho
+} else {
+    cout << "❌ Dirección inválida. Use W, A, S, o D." << endl;
+    continue;
+}
+
 
         // Verificar bloqueos (a menos que tenga llave secreta)
         if (!ignorarBloqueos && tablero->getGestorPowers()->lineaBloqueada(fila, columna, lado))
