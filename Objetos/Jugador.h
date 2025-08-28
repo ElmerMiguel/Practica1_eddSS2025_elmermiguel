@@ -11,6 +11,17 @@ private:
     int puntos;
     PilaPower* poderes;
 
+    // Estados especiales
+    bool protegidoContraTrampas;
+    int turnosEscurridizoRestantes;
+
+    // NUEVOS: Para los 7 niveles de desempate
+    int cuadradosPorFila[10];     // Máximo 10 filas
+    int cuadradosPorColumna[10];  // Máximo 10 columnas
+    int totalCuadrados;
+    int powerUpsUsados;
+    int islaMasGrande;
+
 public:
     Jugador(const std::string& nombre, char inicial);  
     
@@ -33,6 +44,22 @@ public:
     void mostrarPowerUps() const;
     
     void mostrarInfo() const;
+
+    // NUEVOS: Sistema de puntuación avanzado
+    void restarPuntos(int cantidad = 1);
+    void duplicarUltimoPunto();
+    bool tieneEfectoEscurridizo() const;
+    void activarEscurridizo(int turnos = 3);
+
+    // NUEVOS: Para los 7 niveles de desempate
+    void registrarCuadrado(int fila, int columna);
+    void registrarPowerUpUsado();
+    int getCuadradosFila(int fila) const;
+    int getCuadradosColumna(int columna) const;
+    int getTotalCuadrados() const;
+    int getPowerUpsUsados() const;
+    void calcularIslaMasGrande(class Tablero* tablero);
+    int getIslaMasGrande() const;
 };
 
 #endif

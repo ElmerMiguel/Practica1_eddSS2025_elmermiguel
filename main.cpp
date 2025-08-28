@@ -1,15 +1,11 @@
-
-#include "MenuJuego/Juego.h"
+#include <iostream>
+#include "MenuJuego/MenuPrincipal.h"
 
 int main() {
-    Juego juego(3, 3); // tablero 3x3
-
-    Jugador alice("Alice", 'A');
-    Jugador bob("Bob", 'B');
+    MenuPrincipal menu;
     
-    juego.agregarJugador(alice);
-    juego.agregarJugador(bob);
-
-    juego.iniciar();
+    menu.mostrarBienvenida();
+    menu.mostrarMenu();
+    
     return 0;
 }

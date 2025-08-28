@@ -4,12 +4,24 @@
 #include "../PTablero/Tablero.h"
 #include "../Estructuras/ColaC.h"
 #include "../Objetos/Jugador.h"
+#include "../Estructuras/ArregloT.h"  
 
 class Juego {
 private:
     Tablero* tablero;
     ColaC* jugadores;
     bool juegoTerminado;
+
+    // sistema desempate
+    Jugador* determinarGanadorCompleto();
+    void mostrarEstadisticasFinales();
+    ArregloT<Jugador*> filtrarPorPuntos(const ArregloT<Jugador*>& candidatos);
+    ArregloT<Jugador*> filtrarPorCuadrados(const ArregloT<Jugador*>& candidatos);
+    ArregloT<Jugador*> filtrarPorFilas(const ArregloT<Jugador*>& candidatos);
+    ArregloT<Jugador*> filtrarPorColumnas(const ArregloT<Jugador*>& candidatos);
+    ArregloT<Jugador*> filtrarPorIsla(const ArregloT<Jugador*>& candidatos);
+    ArregloT<Jugador*> filtrarPorPowerUps(const ArregloT<Jugador*>& candidatos);
+    void mostrarCandidatos(const ArregloT<Jugador*>& candidatos, const std::string& criterio);
 
 public:
     Juego(int filas, int columnas);  

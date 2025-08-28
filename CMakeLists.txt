@@ -21,4 +21,8 @@ add_executable(Practica1Edd main.cpp
         PTablero/Tablero.cpp
         PTablero/Tablero.h
         Objetos/GestorPowerUps.cpp
-        Objetos/GestorPowerUps.h)
+        Objetos/GestorPowerUps.h
+        MenuJuego/MenuPrincipal.cpp
+        MenuJuego/MenuPrincipal.h
+        Estructuras/ArregloT.tpp
+        Estructuras/ArregloT.h)

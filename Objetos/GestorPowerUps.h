@@ -32,7 +32,7 @@ public:
     GestorPowerUps();
     ~GestorPowerUps();
     
-    // AGREGAR ESTAS DOS LÍNEAS:
+    
     GestorPowerUps(const GestorPowerUps& otro);           // Copy constructor
     GestorPowerUps& operator=(const GestorPowerUps& otro); // Assignment operator
     

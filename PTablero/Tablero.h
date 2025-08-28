@@ -32,6 +32,11 @@ public:
     void procesarFinTurno();
     void mostrarEfectosActivos();
     
+    // verif si juego termino
+    bool tableroCompleto();
+    int contarLineasTotales();
+    int contarLineasMarcadas();
+    
     // Getters
     int getFilas() const { return filas; }
     int getColumnas() const { return columnas; }

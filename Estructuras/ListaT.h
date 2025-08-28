@@ -29,7 +29,7 @@ public:
     void mostrar();
     int getTamaño() const { return tamaño; }
     
-    // Nuevo método para iterar
+    // NUEVO: Getter para acceder al primer nodo
     NodoLista* getPrimero() const { return cabeza; }
 };
 

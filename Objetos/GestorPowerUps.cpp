@@ -44,6 +44,8 @@ GestorPowerUps& GestorPowerUps::operator=(const GestorPowerUps& otro) {
 
 
 
+
+
 bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char lado, char jugador) {
     if (powerUp == nullptr) return false;
     
@@ -64,17 +66,17 @@ bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char
             return true;
             
         case PASE:
-            cout << "¡Jugador " << jugador << " pasa su turno!" << endl;
+            cout << "¡Jugador " << jugador << " pasa su turno y va al final!" << endl;
             powerUp->usar();
             return true;
             
         case LLAVE_SECRETA:
-            cout << "¡Jugador " << jugador << " ignora bloqueos en este turno!" << endl;
+            cout << "¡Jugador " << jugador << " puede ignorar bloqueos en este turno!" << endl;
             powerUp->usar();
             return true;
             
         case ESCURRIDIZO:
-            cout << "¡Jugador " << jugador << " está protegido contra trampas!" << endl;
+            cout << "¡Jugador " << jugador << " activó protección contra trampas!" << endl;
             powerUp->usar();
             return true;
             
@@ -84,17 +86,17 @@ bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char
             return true;
             
         case A_QUE_COSTO:
-            cout << "¡Efecto A Qué Costo activado por jugador " << jugador << "!" << endl;
+            cout << "¡Efecto 'A Qué Costo' activado! Punto para el dueño, casilla para quien marca." << endl;
             powerUp->usar();
             return true;
             
         case NUEVAS_TIERRAS:
-            cout << "¡El tablero se expandirá!" << endl;
+            cout << "¡El tablero se expandirá en la próxima actualización!" << endl;
             powerUp->usar();
             return true;
             
         case EXPLOSIVOS:
-            cout << "¡Un punto será eliminado del mapa!" << endl;
+            cout << "¡PowerUp Explosivos activado! Se eliminará un punto al azar." << endl;
             powerUp->usar();
             return true;
             
@@ -102,6 +104,9 @@ bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char
             return false;
     }
 }
+
+
+
 
 bool GestorPowerUps::lineaBloqueada(int fila, int columna, char lado) {
     NodoEfecto* actual = efectosActivos;

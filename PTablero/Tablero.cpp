@@ -221,3 +221,61 @@ void Tablero::procesarFinTurno() {
 void Tablero::mostrarEfectosActivos() {
     gestorPowers->mostrarEfectosActivos();
 }
+
+
+
+bool Tablero::tableroCompleto() {
+    // Un tablero está completo cuando todas las líneas posibles están marcadas
+    int totalLineas = contarLineasTotales();
+    int lineasMarcadas = contarLineasMarcadas();
+    
+    cout << "Progreso: " << lineasMarcadas << "/" << totalLineas << " líneas marcadas" << endl;
+    
+    return lineasMarcadas >= totalLineas;
+}
+
+int Tablero::contarLineasTotales() {
+    // En un tablero de FxC hay:
+    // - Líneas horizontales: F * (C-1) + (F-1) * C
+    // - Líneas verticales: (F-1) * C + F * (C-1)
+    // Simplificado: 2*F*C - F - C
+    return 2 * filas * columnas - filas - columnas;
+}
+
+int Tablero::contarLineasMarcadas() {
+    int contador = 0;
+    
+    NodoLista* actual = celdas->getPrimero();
+    while (actual != nullptr) {
+        Celda* celda = actual->celda;
+        int fila = celda->getFila();
+        int columna = celda->getColumna();
+        
+        // Contar líneas que no se duplican con celdas adyacentes
+        // Solo contamos líneas superior e izquierda para evitar duplicados
+        
+        // Línea superior (solo si no es primera fila)
+        if (fila > 0 && celda->getLadoSuperior()) {
+            contador++;
+        }
+        
+        // Línea izquierda (solo si no es primera columna)
+        if (columna > 0 && celda->getLadoIzquierdo()) {
+            contador++;
+        }
+        
+        // Líneas del borde derecho (solo última columna)
+        if (columna == columnas - 1 && celda->getLadoDerecho()) {
+            contador++;
+        }
+        
+        // Líneas del borde inferior (solo última fila)
+        if (fila == filas - 1 && celda->getLadoInferior()) {
+            contador++;
+        }
+        
+        actual = actual->siguiente;
+    }
+    
+    return contador;
+}

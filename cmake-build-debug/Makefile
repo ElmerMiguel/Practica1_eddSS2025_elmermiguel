@@ -225,6 +225,30 @@ MenuJuego/Juego.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.s
 .PHONY : MenuJuego/Juego.cpp.s
 
+MenuJuego/MenuPrincipal.o: MenuJuego/MenuPrincipal.cpp.o
+.PHONY : MenuJuego/MenuPrincipal.o
+
+# target to build an object file
+MenuJuego/MenuPrincipal.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/MenuJuego/MenuPrincipal.cpp.o
+.PHONY : MenuJuego/MenuPrincipal.cpp.o
+
+MenuJuego/MenuPrincipal.i: MenuJuego/MenuPrincipal.cpp.i
+.PHONY : MenuJuego/MenuPrincipal.i
+
+# target to preprocess a source file
+MenuJuego/MenuPrincipal.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/MenuJuego/MenuPrincipal.cpp.i
+.PHONY : MenuJuego/MenuPrincipal.cpp.i
+
+MenuJuego/MenuPrincipal.s: MenuJuego/MenuPrincipal.cpp.s
+.PHONY : MenuJuego/MenuPrincipal.s
+
+# target to generate assembly for a file
+MenuJuego/MenuPrincipal.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Practica1Edd.dir/build.make CMakeFiles/Practica1Edd.dir/MenuJuego/MenuPrincipal.cpp.s
+.PHONY : MenuJuego/MenuPrincipal.cpp.s
+
 Objetos/GestorPowerUps.o: Objetos/GestorPowerUps.cpp.o
 .PHONY : Objetos/GestorPowerUps.o
 
@@ -390,6 +414,9 @@ help:
 	@echo "... MenuJuego/Juego.o"
 	@echo "... MenuJuego/Juego.i"
 	@echo "... MenuJuego/Juego.s"
+	@echo "... MenuJuego/MenuPrincipal.o"
+	@echo "... MenuJuego/MenuPrincipal.i"
+	@echo "... MenuJuego/MenuPrincipal.s"
 	@echo "... Objetos/GestorPowerUps.o"
 	@echo "... Objetos/GestorPowerUps.i"
 	@echo "... Objetos/GestorPowerUps.s"

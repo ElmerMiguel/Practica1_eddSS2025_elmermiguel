@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.cpp" "CMakeFiles/Practica1Edd.dir/Estructuras/ListaT.cpp.o" "gcc" "CMakeFiles/Practica1Edd.dir/Estructuras/ListaT.cpp.o.d"
   "/home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.cpp" "CMakeFiles/Practica1Edd.dir/Estructuras/PilaPower.cpp.o" "gcc" "CMakeFiles/Practica1Edd.dir/Estructuras/PilaPower.cpp.o.d"
   "/home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/MenuJuego/Juego.cpp" "CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.o" "gcc" "CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.o.d"
+  "/home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/MenuJuego/MenuPrincipal.cpp" "CMakeFiles/Practica1Edd.dir/MenuJuego/MenuPrincipal.cpp.o" "gcc" "CMakeFiles/Practica1Edd.dir/MenuJuego/MenuPrincipal.cpp.o.d"
   "/home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.cpp" "CMakeFiles/Practica1Edd.dir/Objetos/GestorPowerUps.cpp.o" "gcc" "CMakeFiles/Practica1Edd.dir/Objetos/GestorPowerUps.cpp.o.d"
   "/home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.cpp" "CMakeFiles/Practica1Edd.dir/Objetos/Jugador.cpp.o" "gcc" "CMakeFiles/Practica1Edd.dir/Objetos/Jugador.cpp.o.d"
   "/home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.cpp" "CMakeFiles/Practica1Edd.dir/Objetos/PowerUp.cpp.o" "gcc" "CMakeFiles/Practica1Edd.dir/Objetos/PowerUp.cpp.o.d"
