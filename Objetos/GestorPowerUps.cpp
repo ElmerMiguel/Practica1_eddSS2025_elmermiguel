@@ -44,10 +44,6 @@ GestorPowerUps& GestorPowerUps::operator=(const GestorPowerUps& otro) {
 
 
 
-
-
-// CONSERVA TODO EL ARCHIVO, solo reemplaza este método:
-
 bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char lado, char jugador) {
     if (powerUp == nullptr) return false;
     
@@ -108,7 +104,7 @@ bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char
             return true;
             
         case EXPLOSIVOS:
-            cout << "¡PowerUp Explosivos activado! Se eliminará un punto al azar." << endl;
+            cout << "💥 Explosivos aplicado - punto eliminado del mapa." << endl;
             powerUp->usar();
             return true;
             

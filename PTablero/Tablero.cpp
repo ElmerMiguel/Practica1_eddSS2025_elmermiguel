@@ -370,3 +370,133 @@ void Tablero::redistribuirPowerUps() {
     
     cout << "🎁 Nuevos PowerUps generados en áreas expandidas!" << endl;
 }
+
+
+
+void Tablero::mostrarPuntosDisponibles() {
+    cout << "\n═══════ PUNTOS DISPONIBLES PARA ELIMINAR ═══════" << endl;
+    cout << "Coordenadas válidas (fila, columna):" << endl;
+    
+    for (int i = 0; i <= filas; i++) {
+        for (int j = 0; j <= columnas; j++) {
+            cout << "(" << i << "," << j << ") ";
+            if ((j + 1) % 6 == 0) cout << endl; 
+        }
+    }
+    cout << endl;
+}
+
+bool Tablero::puntoEsValido(int fila, int columna) {
+    return (fila >= 0 && fila <= filas && columna >= 0 && columna <= columnas);
+}
+
+ArregloT<char> Tablero::obtenerJugadoresAfectados(int fila, int columna) {
+    ArregloT<char> jugadoresAfectados;
+    
+    // Verificar cuadrados adyacentes al punto
+    // Cuadrado superior-izquierdo: (fila-1, columna-1)
+    if (fila > 0 && columna > 0) {
+        Celda* celda = obtenerCelda(fila - 1, columna - 1);
+        if (celda != nullptr && celda->estaCompleta() && celda->getPropietario() != ' ') {
+            if (!jugadoresAfectados.contiene(celda->getPropietario())) {
+                jugadoresAfectados.agregar(celda->getPropietario());
+            }
+        }
+    }
+    
+    // Cuadrado superior-derecho: (fila-1, columna)
+    if (fila > 0 && columna < columnas) {
+        Celda* celda = obtenerCelda(fila - 1, columna);
+        if (celda != nullptr && celda->estaCompleta() && celda->getPropietario() != ' ') {
+            if (!jugadoresAfectados.contiene(celda->getPropietario())) {
+                jugadoresAfectados.agregar(celda->getPropietario());
+            }
+        }
+    }
+    
+    // Cuadrado inferior-izquierdo: (fila, columna-1)
+    if (fila < filas && columna > 0) {
+        Celda* celda = obtenerCelda(fila, columna - 1);
+        if (celda != nullptr && celda->estaCompleta() && celda->getPropietario() != ' ') {
+            if (!jugadoresAfectados.contiene(celda->getPropietario())) {
+                jugadoresAfectados.agregar(celda->getPropietario());
+            }
+        }
+    }
+    
+    // Cuadrado inferior-derecho: (fila, columna)
+    if (fila < filas && columna < columnas) {
+        Celda* celda = obtenerCelda(fila, columna);
+        if (celda != nullptr && celda->estaCompleta() && celda->getPropietario() != ' ') {
+            if (!jugadoresAfectados.contiene(celda->getPropietario())) {
+                jugadoresAfectados.agregar(celda->getPropietario());
+            }
+        }
+    }
+    
+    return jugadoresAfectados;
+}
+
+void Tablero::eliminarPunto(int fila, int columna) {
+    if (!puntoEsValido(fila, columna)) {
+        cout << "❌ Punto inválido: (" << fila << "," << columna << ")" << endl;
+        return;
+    }
+    
+    cout << "💥 ELIMINANDO PUNTO (" << fila << "," << columna << ")" << endl;
+    
+    // Obtener jugadores afectados ANTES de eliminar
+    ArregloT<char> jugadoresAfectados = obtenerJugadoresAfectados(fila, columna);
+    
+    // Mostrar jugadores afectados
+    if (jugadoresAfectados.getTamaño() > 0) {
+        cout << "⚠️  JUGADORES AFECTADOS: ";
+        for (int i = 0; i < jugadoresAfectados.getTamaño(); i++) {
+            cout << jugadoresAfectados[i];
+            if (i < jugadoresAfectados.getTamaño() - 1) cout << ", ";
+        }
+        cout << endl;
+        cout << "Sus cuadrados perderán dueño pero mantendrán los puntos." << endl;
+    } else {
+        cout << "✅ No hay jugadores afectados por esta eliminación." << endl;
+    }
+    
+    // Eliminar propietarios de cuadrados afectados
+    // Cuadrado superior-izquierdo
+    if (fila > 0 && columna > 0) {
+        Celda* celda = obtenerCelda(fila - 1, columna - 1);
+        if (celda != nullptr && celda->estaCompleta()) {
+            cout << "   - Cuadrado (" << (fila-1) << "," << (columna-1) << ") pierde dueño" << endl;
+            celda->setPropietario(' '); // Quitar dueño pero mantener cuadrado
+        }
+    }
+    
+    // Cuadrado superior-derecho
+    if (fila > 0 && columna < columnas) {
+        Celda* celda = obtenerCelda(fila - 1, columna);
+        if (celda != nullptr && celda->estaCompleta()) {
+            cout << "   - Cuadrado (" << (fila-1) << "," << columna << ") pierde dueño" << endl;
+            celda->setPropietario(' ');
+        }
+    }
+    
+    // Cuadrado inferior-izquierdo
+    if (fila < filas && columna > 0) {
+        Celda* celda = obtenerCelda(fila, columna - 1);
+        if (celda != nullptr && celda->estaCompleta()) {
+            cout << "   - Cuadrado (" << fila << "," << (columna-1) << ") pierde dueño" << endl;
+            celda->setPropietario(' ');
+        }
+    }
+    
+    // Cuadrado inferior-derecho
+    if (fila < filas && columna < columnas) {
+        Celda* celda = obtenerCelda(fila, columna);
+        if (celda != nullptr && celda->estaCompleta()) {
+            cout << "   - Cuadrado (" << fila << "," << columna << ") pierde dueño" << endl;
+            celda->setPropietario(' ');
+        }
+    }
+    
+    cout << "💥 Punto eliminado exitosamente." << endl;
+}

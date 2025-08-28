@@ -53,7 +53,7 @@ void Juego::iniciar()
 {
     cout << "=== INICIANDO JUEGO ===" << endl;
     
-    // NUEVO: Inicializar tracking de rondas
+
     int numJugadores = 0;
     if (!jugadores->estaVacia()) {
         Jugador* inicial = jugadores->frente_cola();
@@ -145,29 +145,31 @@ void Juego::procesarTurno() {
                     tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
                     break;
 
-                case EXPLOSIVOS:
-                {
-                    // Elegir jugador para quitar punto
-                    cout << "¿A qué jugador quitar un punto? Ingresa inicial: ";
-                    char inicial;
-                    cin >> inicial;
-
-                    // Buscar jugador y quitar punto (implementación básica)
-                    Jugador *objetivo = jugadores->frente_cola();
-                    do
-                    {
-                        if (objetivo->getInicial() == inicial)
-                        {
-                            objetivo->restarPuntos(1);
-                            break;
-                        }
-                        jugadores->encolar(jugadores->desencolar());
-                        objetivo = jugadores->frente_cola();
-                    } while (objetivo != actual);
-
-                    tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
-                    break;
-                }
+                
+case EXPLOSIVOS: {
+    cout << "💥 ¡EXPLOSIVOS ACTIVADO!" << endl;
+    
+    // Mostrar puntos disponibles
+    tablero->mostrarPuntosDisponibles();
+    
+    // Pedir coordenadas del punto a eliminar
+    int filaEliminar, columnaEliminar;
+    cout << "Ingrese coordenadas del punto a eliminar (fila columna): ";
+    cin >> filaEliminar >> columnaEliminar;
+    
+    // Validar y eliminar punto
+    if (tablero->puntoEsValido(filaEliminar, columnaEliminar)) {
+        tablero->eliminarPunto(filaEliminar, columnaEliminar);
+        tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
+        cout << "🎯 Explosivos usado exitosamente!" << endl;
+    } else {
+        cout << "❌ Coordenadas inválidas. PowerUp no consumido." << endl;
+        // Devolver el PowerUp al jugador
+        actual->agregarPowerUp(powerUsado);
+        powerUsado = nullptr; // Evitar que se borre
+    }
+    break;
+}
 
                 case NUEVAS_TIERRAS:
                     if (tablero->puedeExpandir())
@@ -254,7 +256,7 @@ void Juego::procesarTurno() {
         {
             cout << "Línea marcada exitosamente!" << endl;
             
-            // NUEVO: Verificar si hay trampa y manejar efecto
+            // verificar trampa
             if (tablero->getGestorPowers()->lineaConTrampa(fila, columna, lado)) {
                 char propietarioTrampa = tablero->getGestorPowers()->obtenerPropietarioTrampa(fila, columna, lado);
             
@@ -307,7 +309,7 @@ void Juego::procesarTurno() {
             // Verificar si se completó un cuadrado
             if (tablero->verificarCuadradoCompleto(fila, columna))
             {
-                // NUEVO: Verificar efecto A Qué Costo
+                
                 char propietarioPunto = tablero->getGestorPowers()->obtenerPropietarioAQueCosto(fila, columna, lado);
 
                 if (propietarioPunto != ' ')
@@ -384,7 +386,7 @@ void Juego::procesarTurno() {
 
 
 
-                    // NUEVO: Marcar UNIÓN A FUTURO como recién obtenido
+                
     if (nuevoPower->getTipo() == UNION_FUTURO) {
         nuevoPower->marcarComoReciente();
         cout << "⏳ UNIÓN A FUTURO debe esperar un turno antes de usarse." << endl;

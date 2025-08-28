@@ -4,6 +4,7 @@
 #include "../Estructuras/ListaT.h"
 #include "../Objetos/GestorPowerUps.h"
 #include "Celda.h"
+#include "../Estructuras/ArregloT.h" 
 
 class Tablero {
 private:
@@ -47,6 +48,12 @@ public:
     void expandirTablero();
     bool puedeExpandir() const;
     void redistribuirPowerUps();
+
+
+    void eliminarPunto(int fila, int columna);
+    void mostrarPuntosDisponibles();
+    bool puntoEsValido(int fila, int columna);
+    ArregloT<char> obtenerJugadoresAfectados(int fila, int columna);
 };
 
 #endif
