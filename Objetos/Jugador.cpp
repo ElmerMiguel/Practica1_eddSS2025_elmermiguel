@@ -138,3 +138,20 @@ void Jugador::calcularIslaMasGrande(Tablero* tablero) {
 int Jugador::getIslaMasGrande() const {
     return islaMasGrande;
 }
+
+
+
+
+void Jugador::procesarFinTurnoJugador() {
+    // Marcar todos los PowerUps como "viejos" para que puedan usarse
+    // Esto se implementaría si tuviéramos acceso a la pila interna
+    // Por ahora, asumiremos que se maneja en el uso
+    
+    if (turnosEscurridizoRestantes > 0) {
+        turnosEscurridizoRestantes--;
+        if (turnosEscurridizoRestantes == 0) {
+            protegidoContraTrampas = false;
+            cout << "🛡️ Protección Escurridizo de " << nombre << " ha expirado." << endl;
+        }
+    }
+}

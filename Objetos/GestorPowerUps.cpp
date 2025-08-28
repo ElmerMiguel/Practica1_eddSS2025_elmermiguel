@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-GestorPowerUps::GestorPowerUps() : efectosActivos(nullptr) {}
+GestorPowerUps::GestorPowerUps() : efectosActivos(nullptr), jugadoresEnRonda(0), turnosTranscurridos(0) {}
 
 // DESTRUCTOR
 GestorPowerUps::~GestorPowerUps() {
@@ -46,6 +46,8 @@ GestorPowerUps& GestorPowerUps::operator=(const GestorPowerUps& otro) {
 
 
 
+// CONSERVA TODO EL ARCHIVO, solo reemplaza este método:
+
 bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char lado, char jugador) {
     if (powerUp == nullptr) return false;
     
@@ -75,10 +77,20 @@ bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char
             powerUp->usar();
             return true;
             
-        case ESCURRIDIZO:
+        case ESCURRIDIZO: {  // AGREGAR LLAVES
             cout << "¡Jugador " << jugador << " activó protección contra trampas!" << endl;
+            cout << "Efecto: 50% probabilidad de evitar trampas por 3 turnos." << endl;
+            
+            PowerUp* escurridizo = PowerUp::crearPowerUp(ESCURRIDIZO);
+            EfectoActivo* efecto = new EfectoActivo(escurridizo, -1, -1, ' ', 3, jugador);
+            
+            NodoEfecto* nuevoNodo = new NodoEfecto(efecto);
+            nuevoNodo->siguiente = efectosActivos;
+            efectosActivos = nuevoNodo;
+            
             powerUp->usar();
             return true;
+        }
             
         case DOBLE_LINEA:
             cout << "¡Jugador " << jugador << " puede colocar una línea adicional!" << endl;
@@ -86,12 +98,12 @@ bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char
             return true;
             
         case A_QUE_COSTO:
-            cout << "¡Efecto 'A Qué Costo' activado! Punto para el dueño, casilla para quien marca." << endl;
+            activarAQueCosto(fila, columna, lado, jugador);
             powerUp->usar();
             return true;
             
         case NUEVAS_TIERRAS:
-            cout << "¡El tablero se expandirá en la próxima actualización!" << endl;
+            cout << "🌍 ¡NUEVAS TIERRAS activado!" << endl;
             powerUp->usar();
             return true;
             
@@ -104,7 +116,6 @@ bool GestorPowerUps::aplicarEfecto(PowerUp* powerUp, int fila, int columna, char
             return false;
     }
 }
-
 
 
 
@@ -128,7 +139,7 @@ bool GestorPowerUps::lineaConTrampa(int fila, int columna, char lado) {
         EfectoActivo* efecto = actual->efecto;
         if (efecto->powerUp->getTipo() == TRAMPA_SECRETA &&
             efecto->fila == fila && efecto->columna == columna && 
-            efecto->lado == lado && efecto->turnosRestantes > 0) {
+            efecto->lado == lado && efecto->turnosRestantes != 0) {
             return true;
         }
         actual = actual->siguiente;
@@ -150,17 +161,7 @@ bool GestorPowerUps::lineaConUnionFuturo(int fila, int columna, char lado) {
     return false;
 }
 
-void GestorPowerUps::procesarFinTurno() {
-    // Reducir turnos restantes de todos los efectos
-    NodoEfecto* actual = efectosActivos;
-    while (actual != nullptr) {
-        actual->efecto->turnosRestantes--;
-        actual = actual->siguiente;
-    }
-    
-    // Limpiar efectos expirados
-    limpiarEfectosExpirados();
-}
+
 
 void GestorPowerUps::limpiarEfectosExpirados() {
     NodoEfecto* actual = efectosActivos;
@@ -190,17 +191,7 @@ void GestorPowerUps::limpiarEfectosExpirados() {
     }
 }
 
-void GestorPowerUps::activarBloqueo(int fila, int columna, char lado, char jugador) {
-    PowerUp* bloqueo = PowerUp::crearPowerUp(BLOQUEO);
-    EfectoActivo* efecto = new EfectoActivo(bloqueo, fila, columna, lado, 3, jugador);  // 3 turnos
-    
-    NodoEfecto* nuevoNodo = new NodoEfecto(efecto);
-    nuevoNodo->siguiente = efectosActivos;
-    efectosActivos = nuevoNodo;
-    
-    cout << "¡Línea (" << fila << "," << columna << ") lado " << lado 
-         << " bloqueada por 3 turnos!" << endl;
-}
+
 
 void GestorPowerUps::activarTrampa(int fila, int columna, char lado, char jugador) {
     PowerUp* trampa = PowerUp::crearPowerUp(TRAMPA_SECRETA);
@@ -248,4 +239,171 @@ void GestorPowerUps::mostrarEfectosActivos() {
         actual = actual->siguiente;
     }
     cout << "===================" << endl;
+}
+
+
+
+bool GestorPowerUps::jugadorTieneEscurridizo(char jugador) {
+    NodoEfecto* actual = efectosActivos;
+    while (actual != nullptr) {
+        EfectoActivo* efecto = actual->efecto;
+        if (efecto->powerUp->getTipo() == ESCURRIDIZO &&
+            efecto->jugadorPropietario == jugador && 
+            efecto->turnosRestantes > 0) {
+            
+            // 50% probabilidad
+            int probabilidad = rand() % 100;
+            if (probabilidad < 50) {
+                cout << "🛡️ ¡Escurridizo activado! " << jugador << " evitó la trampa!" << endl;
+                return true;
+            } else {
+                cout << "💥 Escurridizo falló. La trampa sigue activa." << endl;
+                return false;
+            }
+        }
+        actual = actual->siguiente;
+    }
+    return false;
+}
+
+
+
+
+void GestorPowerUps::activarAQueCosto(int fila, int columna, char lado, char jugador) {
+    PowerUp* aQueCosto = PowerUp::crearPowerUp(A_QUE_COSTO);
+    EfectoActivo* efecto = new EfectoActivo(aQueCosto, fila, columna, lado, -1, jugador);  // Permanente
+    
+    NodoEfecto* nuevoNodo = new NodoEfecto(efecto);
+    nuevoNodo->siguiente = efectosActivos;
+    efectosActivos = nuevoNodo;
+    
+    cout << "¡'A Qué Costo' colocado en (" << fila << "," << columna 
+         << ") lado " << lado << " por jugador " << jugador << "!" << endl;
+    cout << "Efecto: El punto irá para " << jugador << ", la casilla para quien complete." << endl;
+}
+
+char GestorPowerUps::obtenerPropietarioAQueCosto(int fila, int columna, char lado) {
+    NodoEfecto* actual = efectosActivos;
+    while (actual != nullptr) {
+        EfectoActivo* efecto = actual->efecto;
+        if (efecto->powerUp->getTipo() == A_QUE_COSTO &&
+            efecto->fila == fila && efecto->columna == columna && 
+            efecto->lado == lado && efecto->turnosRestantes != 0) {
+            
+            // Consumir el efecto (solo se usa una vez)
+            efecto->turnosRestantes = 0;
+            return efecto->jugadorPropietario;
+        }
+        actual = actual->siguiente;
+    }
+    return ' '; // No hay efecto A Qué Costo
+}
+
+
+
+
+char GestorPowerUps::obtenerPropietarioTrampa(int fila, int columna, char lado) {
+    NodoEfecto* actual = efectosActivos;
+    while (actual != nullptr) {
+        EfectoActivo* efecto = actual->efecto;
+        if (efecto->powerUp->getTipo() == TRAMPA_SECRETA &&
+            efecto->fila == fila && efecto->columna == columna && 
+            efecto->lado == lado && efecto->turnosRestantes != 0) {
+            
+            // Consumir la trampa (solo se activa una vez)
+            efecto->turnosRestantes = 0;
+            return efecto->jugadorPropietario;
+        }
+        actual = actual->siguiente;
+    }
+    return ' '; // No hay trampa
+}
+
+
+
+
+void GestorPowerUps::inicializarRonda(int numJugadores) {
+    jugadoresEnRonda = numJugadores;
+    turnosTranscurridos = 0;
+}
+
+void GestorPowerUps::avanzarTurno() {
+    turnosTranscurridos++;
+}
+
+bool GestorPowerUps::rondaCompleta() {
+    return (jugadoresEnRonda > 0 && turnosTranscurridos >= jugadoresEnRonda);
+}
+
+// MODIFICAR el método procesarFinTurno():
+
+void GestorPowerUps::procesarFinTurno() {
+    avanzarTurno();
+    
+    NodoEfecto* actual = efectosActivos;
+    NodoEfecto* anterior = nullptr;
+    
+    while (actual != nullptr) {
+        EfectoActivo* efecto = actual->efecto;
+        
+        // Procesar según tipo de efecto
+        if (efecto->powerUp->getTipo() == BLOQUEO) {
+            // Los bloqueos duran toda la ronda
+            if (rondaCompleta()) {
+                cout << "🔓 Bloqueo en (" << efecto->fila << "," << efecto->columna 
+                     << ") lado " << efecto->lado << " ha expirado." << endl;
+                efecto->turnosRestantes = 0;
+            }
+        } else {
+            // Otros efectos con duración normal
+            if (efecto->turnosRestantes > 0) {
+                efecto->turnosRestantes--;
+                if (efecto->turnosRestantes == 0) {
+                    cout << "⏰ Efecto " << efecto->powerUp->getSimbolo() 
+                         << " ha expirado." << endl;
+                }
+            }
+        }
+        
+        // Eliminar efectos expirados
+        if (efecto->turnosRestantes == 0) {
+            if (anterior == nullptr) {
+                efectosActivos = actual->siguiente;
+            } else {
+                anterior->siguiente = actual->siguiente;
+            }
+            
+            NodoEfecto* temp = actual;
+            actual = actual->siguiente;
+            
+            delete temp->efecto->powerUp;
+            delete temp->efecto;
+            delete temp;
+        } else {
+            anterior = actual;
+            actual = actual->siguiente;
+        }
+    }
+    
+    // Reiniciar contador si la ronda está completa
+    if (rondaCompleta()) {
+        turnosTranscurridos = 0;
+        cout << "🔄 Nueva ronda iniciada." << endl;
+    }
+}
+
+// MODIFICAR el método activarBloqueo():
+
+void GestorPowerUps::activarBloqueo(int fila, int columna, char lado, char jugador) {
+    PowerUp* bloqueo = PowerUp::crearPowerUp(BLOQUEO);
+    // -1 indica que dura toda la ronda, no por turnos específicos
+    EfectoActivo* efecto = new EfectoActivo(bloqueo, fila, columna, lado, -1, jugador);
+    
+    NodoEfecto* nuevoNodo = new NodoEfecto(efecto);
+    nuevoNodo->siguiente = efectosActivos;
+    efectosActivos = nuevoNodo;
+    
+    cout << "🔒 Bloqueo activado en (" << fila << "," << columna 
+         << ") lado " << lado << " por " << jugador << endl;
+    cout << "Duración: Toda la ronda actual." << endl;
 }

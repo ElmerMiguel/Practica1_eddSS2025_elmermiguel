@@ -47,9 +47,26 @@ void Juego::agregarJugador(const Jugador &jugador)
     jugadores->encolar(nuevoJugador);
 }
 
+
+
 void Juego::iniciar()
 {
     cout << "=== INICIANDO JUEGO ===" << endl;
+    
+    // NUEVO: Inicializar tracking de rondas
+    int numJugadores = 0;
+    if (!jugadores->estaVacia()) {
+        Jugador* inicial = jugadores->frente_cola();
+        Jugador* actual = inicial;
+        do {
+            numJugadores++;
+            jugadores->encolar(jugadores->desencolar());
+            actual = jugadores->frente_cola();
+        } while (actual != inicial);
+    }
+    
+    tablero->getGestorPowers()->inicializarRonda(numJugadores);
+    cout << "Ronda inicializada con " << numJugadores << " jugadores." << endl;
 
     while (!juegoTerminado)
     {
@@ -63,8 +80,6 @@ void Juego::iniciar()
         }
     }
 }
-
-
 
 
 void Juego::procesarTurno() {
@@ -102,7 +117,6 @@ void Juego::procesarTurno() {
             PowerUp *powerUsado = actual->usarPowerUp();
             if (powerUsado != nullptr)
             {
-                // AGREGAR ESTA LÍNEA:
                 actual->registrarPowerUpUsado();
 
                 // Manejar efectos especiales según el tipo
@@ -155,6 +169,21 @@ void Juego::procesarTurno() {
                     break;
                 }
 
+                case NUEVAS_TIERRAS:
+                    if (tablero->puedeExpandir())
+                    {
+                        tablero->expandirTablero();
+                        tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
+                    }
+                    else
+                    {
+                        cout << "❌ No se puede expandir más el tablero." << endl;
+                        // Devolver el PowerUp al jugador si no se puede usar
+                        actual->agregarPowerUp(powerUsado);
+                        powerUsado = nullptr; // Evitar que se borre
+                    }
+                    break;
+
                 default:
                 {
                     cout << "Ingrese fila, columna y lado para aplicar el PowerUp: ";
@@ -168,6 +197,40 @@ void Juego::procesarTurno() {
 
                 delete powerUsado;
             }
+
+
+
+
+            if (powerUsado->getTipo() == UNION_FUTURO && powerUsado->esRecienObtenido()) {
+        cout << "❌ UNIÓN A FUTURO no se puede usar inmediatamente." << endl;
+        cout << "Debe esperar al menos un turno después de obtenerlo." << endl;
+        
+        // Devolver el PowerUp al jugador
+        actual->agregarPowerUp(powerUsado);
+        powerUsado = nullptr; // Evitar que se borre
+    } else {
+        // Marcar PowerUp como viejo si es necesario
+        if (powerUsado->getTipo() == UNION_FUTURO) {
+            powerUsado->marcarComoViejo();
+        }
+        
+        actual->registrarPowerUpUsado();
+
+        // Manejar efectos especiales según el tipo
+        switch (powerUsado->getTipo()) {
+            // ... casos existentes ...
+        }
+
+        if (powerUsado != nullptr) {
+            delete powerUsado;
+        }
+    }
+
+
+
+
+
+
         }
     }
 
@@ -190,41 +253,145 @@ void Juego::procesarTurno() {
         if (tablero->marcarLinea(fila, columna, lado, actual->getInicial()))
         {
             cout << "Línea marcada exitosamente!" << endl;
+            
+            // NUEVO: Verificar si hay trampa y manejar efecto
+            if (tablero->getGestorPowers()->lineaConTrampa(fila, columna, lado)) {
+                char propietarioTrampa = tablero->getGestorPowers()->obtenerPropietarioTrampa(fila, columna, lado);
+            
+                if (propietarioTrampa != ' ') {
+                    // Verificar protección Escurridizo
+                    if (!tablero->getGestorPowers()->jugadorTieneEscurridizo(actual->getInicial())) {
+                        cout << "💥 ¡TRAMPA ACTIVADA por jugador " << propietarioTrampa << "!" << endl;
+            
+                        // Buscar al trapero y moverlo al frente
+                        Jugador* trapero = nullptr;
+                        int posiciones = 0;
+            
+                        // Contar jugadores y encontrar al trapero
+                        Jugador* busqueda = jugadores->frente_cola();
+                        do {
+                            if (busqueda->getInicial() == propietarioTrampa) {
+                                trapero = busqueda;
+                                break;
+                            }
+                            jugadores->encolar(jugadores->desencolar());
+                            busqueda = jugadores->frente_cola();
+                            posiciones++;
+                        } while (busqueda != actual && posiciones < 10); // Evitar loop infinito
+            
+                        // Mover al trapero al frente (solo si no es el jugador actual)
+                        if (trapero != nullptr && trapero != actual) {
+                            // Extraer al trapero de su posición
+                            Jugador* extraido = jugadores->desencolar();
+            
+                            // Rotar hasta encontrar la posición correcta
+                            while (extraido != trapero && posiciones > 0) {
+                                jugadores->encolar(extraido);
+                                extraido = jugadores->desencolar();
+                                posiciones--;
+                            }
+            
+                            // Poner al trapero al frente después del turno actual
+                            cout << "🎯 " << trapero->getNombre() << " se mueve al frente de la cola!" << endl;
+            
+                            // Mantener al jugador actual al frente por ahora
+                            jugadores->encolar(extraido); // Poner al trapero en segunda posición
+                        } else {
+                            cout << "El trapero ya está jugando o es el jugador actual." << endl;
+                        }
+                    }
+                }
+            }
             turnoExitoso = true;
 
             // Verificar si se completó un cuadrado
             if (tablero->verificarCuadradoCompleto(fila, columna))
             {
-                // NUEVO: Registrar el cuadrado para estadísticas
-                actual->registrarCuadrado(fila, columna);
+                // NUEVO: Verificar efecto A Qué Costo
+                char propietarioPunto = tablero->getGestorPowers()->obtenerPropietarioAQueCosto(fila, columna, lado);
 
-                // Asignar propietario a la celda
-                Celda *celda = tablero->obtenerCelda(fila, columna);
-                if (celda != nullptr)
+                if (propietarioPunto != ' ')
                 {
-                    celda->setPropietario(actual->getInicial());
-                }
+                    // Efecto A Qué Costo activo
+                    cout << "💰 ¡A Qué Costo activado!" << endl;
 
-                // Verificar efectos especiales de puntuación
-                if (tablero->getGestorPowers()->lineaConUnionFuturo(fila, columna, lado))
-                {
-                    actual->duplicarUltimoPunto(); // Doble punto
+                    // Buscar al jugador que debe recibir el punto
+                    Jugador *jugadorPunto = nullptr;
+                    Jugador *inicialBusqueda = jugadores->frente_cola();
+                    Jugador *actualBusqueda = inicialBusqueda;
+
+                    do
+                    {
+                        if (actualBusqueda->getInicial() == propietarioPunto)
+                        {
+                            jugadorPunto = actualBusqueda;
+                            break;
+                        }
+                        jugadores->encolar(jugadores->desencolar());
+                        actualBusqueda = jugadores->frente_cola();
+                    } while (actualBusqueda != inicialBusqueda);
+
+                    // Dar punto al propietario original
+                    if (jugadorPunto != nullptr)
+                    {
+                        jugadorPunto->incrementarPuntos();
+                        jugadorPunto->registrarCuadrado(fila, columna);
+                        cout << "   Punto para: " << jugadorPunto->getNombre() << " (" << propietarioPunto << ")" << endl;
+                    }
+
+                    // Dar casilla a quien completó
+                    actual->registrarCuadrado(fila, columna);
+                    Celda *celda = tablero->obtenerCelda(fila, columna);
+                    if (celda != nullptr)
+                    {
+                        celda->setPropietario(actual->getInicial());
+                    }
+                    cout << "   Casilla para: " << actual->getNombre() << " (" << actual->getInicial() << ")" << endl;
                 }
                 else
                 {
-                    actual->incrementarPuntos();
+                    // Comportamiento normal
+                    actual->registrarCuadrado(fila, columna);
+
+                    // Asignar propietario a la celda
+                    Celda *celda = tablero->obtenerCelda(fila, columna);
+                    if (celda != nullptr)
+                    {
+                        celda->setPropietario(actual->getInicial());
+                    }
+
+                    // Verificar efectos especiales de puntuación
+                    if (tablero->getGestorPowers()->lineaConUnionFuturo(fila, columna, lado))
+                    {
+                        actual->duplicarUltimoPunto(); // Doble punto
+                    }
+                    else
+                    {
+                        actual->incrementarPuntos();
+                    }
                 }
 
-                cout << "¡" << actual->getNombre() << " completó un cuadrado en ("
-                     << fila << "," << columna << ")!" << endl;
+                cout << "¡Cuadrado completado en (" << fila << "," << columna << ")!" << endl;
 
                 // Verificar si la celda tiene PowerUp
+                Celda *celda = tablero->obtenerCelda(fila, columna);
                 if (celda != nullptr && !celda->getPowerUp().empty())
                 {
                     cout << "¡Recogiste un PowerUp: " << celda->getPowerUp() << "!" << endl;
                     PowerUp *nuevoPower = PowerUp::crearPowerUpAleatorio();
                     actual->agregarPowerUp(nuevoPower);
                     celda->setPowerUp("");
+
+
+
+                    // NUEVO: Marcar UNIÓN A FUTURO como recién obtenido
+    if (nuevoPower->getTipo() == UNION_FUTURO) {
+        nuevoPower->marcarComoReciente();
+        cout << "⏳ UNIÓN A FUTURO debe esperar un turno antes de usarse." << endl;
+    }
+    
+    actual->agregarPowerUp(nuevoPower);
+    celda->setPowerUp("");
                 }
 
                 // El mismo jugador continúa (no se avanza turno)
@@ -258,7 +425,7 @@ void Juego::procesarTurno() {
 
             if (tablero->verificarCuadradoCompleto(fila2, columna2))
             {
-                // NUEVO: Registrar también el segundo cuadrado
+                
                 actual->registrarCuadrado(fila2, columna2);
 
                 Celda *celda2 = tablero->obtenerCelda(fila2, columna2);
@@ -272,6 +439,8 @@ void Juego::procesarTurno() {
             }
         }
     }
+
+    actual->procesarFinTurnoJugador();
     // Procesar fin de turno
     tablero->procesarFinTurno();
 }
@@ -346,8 +515,6 @@ bool Juego::verificarFinJuego()
     cin >> continuar;
     return (continuar == 'n' || continuar == 'N');
 }
-
-// AGREGAR estos nuevos métodos al final del archivo:
 
 Jugador *Juego::determinarGanadorCompleto()
 {
@@ -441,8 +608,6 @@ Jugador *Juego::determinarGanadorCompleto()
 
     return nullptr; // Empate técnico
 }
-
-// CONSERVA TODO EL ARCHIVO, solo agrega estos métodos al final:
 
 void Juego::mostrarEstadisticasFinales()
 {

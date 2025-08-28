@@ -279,3 +279,94 @@ int Tablero::contarLineasMarcadas() {
     
     return contador;
 }
+
+
+
+
+
+
+bool Tablero::puedeExpandir() const {
+    // Solo expandir si el tablero es menor a 8x8
+    return (filas < 8 && columnas < 8);
+}
+
+void Tablero::expandirTablero() {
+    if (!puedeExpandir()) {
+        cout << "❌ No se puede expandir más el tablero (máximo 8x8)." << endl;
+        return;
+    }
+    
+    cout << "🚀 ¡EXPANDIENDO TABLERO!" << endl;
+    cout << "Tablero anterior: " << filas << "x" << columnas << endl;
+    
+    // Guardar datos existentes
+    ListaT* celdasAnteriores = celdas;
+    int filasAnteriores = filas;
+    int columnasAnteriores = columnas;
+    
+    // Incrementar dimensiones
+    filas++;
+    columnas++;
+    
+    // Crear nueva lista de celdas
+    celdas = new ListaT();
+    
+    // Inicializar todas las celdas nuevas
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            Celda* nuevaCelda = new Celda(i, j);
+            celdas->insertar(nuevaCelda);
+        }
+    }
+    
+    // Transferir datos de celdas anteriores
+    NodoLista* actualAnterior = celdasAnteriores->getPrimero();
+    while (actualAnterior != nullptr) {
+        Celda* celdaAnterior = actualAnterior->celda;
+        int filaAnterior = celdaAnterior->getFila();
+        int columnaAnterior = celdaAnterior->getColumna();
+        
+        // Encontrar celda correspondiente en nuevo tablero
+        Celda* celdaNueva = obtenerCelda(filaAnterior, columnaAnterior);
+        if (celdaNueva != nullptr) {
+            // Transferir estado
+            celdaNueva->setLadoSuperior(celdaAnterior->getLadoSuperior());
+            celdaNueva->setLadoInferior(celdaAnterior->getLadoInferior());
+            celdaNueva->setLadoIzquierdo(celdaAnterior->getLadoIzquierdo());
+            celdaNueva->setLadoDerecho(celdaAnterior->getLadoDerecho());
+            celdaNueva->setPropietario(celdaAnterior->getPropietario());
+            celdaNueva->setPowerUp(celdaAnterior->getPowerUp());
+        }
+        
+        actualAnterior = actualAnterior->siguiente;
+    }
+    
+    // Limpiar datos anteriores
+    delete celdasAnteriores;
+    
+    // Generar nuevos PowerUps en las áreas expandidas
+    redistribuirPowerUps();
+    
+    cout << "✅ Tablero expandido a: " << filas << "x" << columnas << endl;
+}
+
+void Tablero::redistribuirPowerUps() {
+    // Generar PowerUps en las nuevas filas y columnas
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            // Solo en las áreas nuevas (última fila o última columna)
+            if (i == filas - 1 || j == columnas - 1) {
+                if (rand() % 100 < 20) {  // 20% probabilidad en áreas nuevas
+                    Celda* celda = obtenerCelda(i, j);
+                    if (celda != nullptr && celda->getPowerUp().empty()) {
+                        PowerUp* powerUp = PowerUp::crearPowerUpAleatorio();
+                        celda->setPowerUp(powerUp->getSimbolo());
+                        delete powerUp; // Solo necesitamos el símbolo
+                    }
+                }
+            }
+        }
+    }
+    
+    cout << "🎁 Nuevos PowerUps generados en áreas expandidas!" << endl;
+}

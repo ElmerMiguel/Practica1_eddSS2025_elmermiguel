@@ -22,13 +22,16 @@ private:
     std::string simbolo;
     std::string descripcion;
     bool usado;
-    bool activo;        // Para efectos que duran en el tablero
-    int filaEfecto;     // Para PowerUps que afectan líneas específicas
-    int columnaEfecto;
+    bool activo;
+    int filaEfecto, columnaEfecto;
     char ladoEfecto;
+    bool recienObtenido;
+
+
 
 public:
-    PowerUp(TipoPowerUp tipo);
+    PowerUp(TipoPowerUp tipo);  // Constructor simple
+    PowerUp(TipoPowerUp tipo, const std::string& simbolo);  // Constructor completo
     
     // Regla de los 3
     ~PowerUp() = default;
@@ -61,6 +64,10 @@ public:
     
     // Metodos para verificar efectos
     bool afectaLinea(int fila, int columna, char lado) const;
+    bool esRecienObtenido() const { return recienObtenido; }
+    void marcarComoViejo() { recienObtenido = false; }
+    void marcarComoReciente() { recienObtenido = true; }
+    
 };
 
 #endif

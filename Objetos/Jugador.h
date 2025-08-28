@@ -60,6 +60,8 @@ public:
     int getPowerUpsUsados() const;
     void calcularIslaMasGrande(class Tablero* tablero);
     int getIslaMasGrande() const;
+
+    void procesarFinTurnoJugador();
 };
 
 #endif

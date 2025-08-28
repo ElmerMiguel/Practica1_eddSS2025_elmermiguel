@@ -12,6 +12,7 @@ public:
     int turnosRestantes;
     char jugadorPropietario;
     
+    // SOLO UN CONSTRUCTOR - eliminar el duplicado
     EfectoActivo(PowerUp* p, int f, int c, char l, int turnos, char jugador)
         : powerUp(p), fila(f), columna(c), lado(l), turnosRestantes(turnos), jugadorPropietario(jugador) {}
 };
@@ -27,6 +28,8 @@ public:
 class GestorPowerUps {
 private:
     NodoEfecto* efectosActivos;  // Lista de efectos activos en el tablero
+    int jugadoresEnRonda;
+    int turnosTranscurridos;
     
 public:
     GestorPowerUps();
@@ -55,6 +58,21 @@ public:
     
     // Mostrar efectos activos
     void mostrarEfectosActivos();
+    
+    // Verificar protección contra trampas
+    bool jugadorTieneEscurridizo(char jugador);
+
+     // Para A Qué Costo
+    void activarAQueCosto(int fila, int columna, char lado, char jugador);
+    char obtenerPropietarioAQueCosto(int fila, int columna, char lado);
+
+    // trampa secreta
+    char obtenerPropietarioTrampa(int fila, int columna, char lado);
+
+    //Manejo de rondas
+    void inicializarRonda(int numJugadores);
+    void avanzarTurno();
+    bool rondaCompleta();
 };
 
 #endif

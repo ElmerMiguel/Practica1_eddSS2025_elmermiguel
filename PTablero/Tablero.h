@@ -42,6 +42,11 @@ public:
     int getColumnas() const { return columnas; }
     ListaT* getCeldas() const { return celdas; }
     GestorPowerUps* getGestorPowers() const { return gestorPowers; }
+
+        // Para expansión del tablero
+    void expandirTablero();
+    bool puedeExpandir() const;
+    void redistribuirPowerUps();
 };
 
 #endif

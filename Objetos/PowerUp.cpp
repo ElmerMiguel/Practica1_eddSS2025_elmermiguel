@@ -4,9 +4,49 @@
 #include <ctime>
 using namespace std;
 
-PowerUp::PowerUp(TipoPowerUp tipo) : tipo(tipo), usado(false), activo(false), 
-                                     filaEfecto(-1), columnaEfecto(-1), ladoEfecto(' ') {
-    // Inicializar simb y descrip segun el tipo
+
+PowerUp::PowerUp(TipoPowerUp tipo, const std::string& simbolo) 
+    : tipo(tipo), simbolo(simbolo), usado(false), recienObtenido(false) {
+    // Inicializar la descripción según el tipo.
+    // El símbolo ya se inicializa en la lista de inicialización.
+    switch(tipo) {
+        case DOBLE_LINEA:
+            descripcion = "Permite colocar dos líneas consecutivas";
+            break;
+        case TRAMPA_SECRETA:
+            descripcion = "Línea trampa que roba puntos al enemigo";
+            break;
+        case BLOQUEO:
+            descripcion = "Bloquea una línea durante una ronda";
+            break;
+        case PASE:
+            descripcion = "Pasa turno y va al final de la cola";
+            break;
+        case LLAVE_SECRETA:
+            descripcion = "Ignora un bloqueo existente";
+            break;
+        case ESCURRIDIZO:
+            descripcion = "Protege contra trampas por una ronda";
+            break;
+        case UNION_FUTURO:
+            descripcion = "Doble punto si el mismo jugador completa después";
+            break;
+        case A_QUE_COSTO:
+            descripcion = "Punto para quien corresponde, casilla para quien puso línea";
+            break;
+        case NUEVAS_TIERRAS:
+            descripcion = "Expande el tablero hacia afuera";
+            break;
+        case EXPLOSIVOS:
+            descripcion = "Elimina un punto del mapa";
+            break;
+    }
+}
+
+
+
+PowerUp::PowerUp(TipoPowerUp tipo) : tipo(tipo), usado(false), recienObtenido(false) {
+    // Asignar símbolo automáticamente según el tipo
     switch(tipo) {
         case DOBLE_LINEA:
             simbolo = "DL";
@@ -51,23 +91,17 @@ PowerUp::PowerUp(TipoPowerUp tipo) : tipo(tipo), usado(false), activo(false),
     }
 }
 
+
 // COPY CONSTRUCTOR
-PowerUp::PowerUp(const PowerUp& otro) 
-    : tipo(otro.tipo), simbolo(otro.simbolo), descripcion(otro.descripcion),
-      usado(otro.usado), activo(otro.activo), filaEfecto(otro.filaEfecto),
-      columnaEfecto(otro.columnaEfecto), ladoEfecto(otro.ladoEfecto) {}
+PowerUp::PowerUp(const PowerUp& otro) : tipo(otro.tipo), simbolo(otro.simbolo), usado(otro.usado), recienObtenido(otro.recienObtenido) {}
 
 // ASSIG OPERATOR
 PowerUp& PowerUp::operator=(const PowerUp& otro) {
     if (this != &otro) {
         tipo = otro.tipo;
         simbolo = otro.simbolo;
-        descripcion = otro.descripcion;
         usado = otro.usado;
-        activo = otro.activo;
-        filaEfecto = otro.filaEfecto;
-        columnaEfecto = otro.columnaEfecto;
-        ladoEfecto = otro.ladoEfecto;
+        recienObtenido = otro.recienObtenido;
     }
     return *this;
 }
