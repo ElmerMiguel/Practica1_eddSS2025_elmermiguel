@@ -638,8 +638,11 @@ void Tablero::procesarCuadrado(int fila, int columna, char lado, Jugador* actual
         
         // Recoger PowerUp de la celda si hay
         if (!celda->getPowerUp().empty()) {
-            cout << "🎁 ¡Recogiste un PowerUp: " << celda->getPowerUp() << "!" << endl;
-            PowerUp* nuevoPower = PowerUp::crearPowerUpAleatorio();
+            std::string simboloPowerUp = celda->getPowerUp();
+            cout << "🎁 ¡Recogiste un PowerUp: " << simboloPowerUp << "!" << endl;
+            
+            // Crear el PowerUp correspondiente al símbolo recogido
+            PowerUp* nuevoPower = PowerUp::crearPowerUpDesdeSimboloCelda(simboloPowerUp);
             if (nuevoPower->getTipo() == UNION_FUTURO) nuevoPower->marcarComoReciente();
             
             actual->agregarPowerUp(nuevoPower);

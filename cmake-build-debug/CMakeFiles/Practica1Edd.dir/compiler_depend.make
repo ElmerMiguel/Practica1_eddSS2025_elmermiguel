@@ -700,6 +700,7 @@ CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.o: /home/elmermekel/Documentos/C
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
+  /usr/include/c++/13/limits \
   /usr/include/c++/13/new \
   /usr/include/c++/13/numbers \
   /usr/include/c++/13/ostream \
@@ -1312,6 +1313,7 @@ CMakeFiles/Practica1Edd.dir/Objetos/Jugador.cpp.o: /home/elmermekel/Documentos/C
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
+  /usr/include/c++/13/limits \
   /usr/include/c++/13/new \
   /usr/include/c++/13/numbers \
   /usr/include/c++/13/ostream \
@@ -2243,9 +2245,9 @@ CMakeFiles/Practica1Edd.dir/main.cpp.o: /home/elmermekel/Documentos/Clion/Practi
 
 /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.cpp:
 
-/usr/include/c++/13/limits:
-
 /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/MenuJuego/MenuPrincipal.h:
+
+/usr/include/c++/13/limits:
 
 /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/MenuJuego/Juego.h:
 

@@ -120,10 +120,14 @@ void Juego::procesarTurno() {
 
             if (powerUsado != nullptr) {
                 actual->registrarPowerUpUsado();
+                
+                // Mostrar información del PowerUp que se está utilizando
+                cout << "\n🎮 Usando PowerUp: " << powerUsado->getTipoString() 
+                     << " (" << powerUsado->getSimbolo() << ") - " 
+                     << powerUsado->getDescripcion() << endl;
 
                 switch (powerUsado->getTipo()) {
                     case PASE:
-                        cout << "\n🎮 Usando PowerUp: PASE ⏭️" << endl;
                         tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
                         cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
                         mostrarTablero();
@@ -133,7 +137,6 @@ void Juego::procesarTurno() {
                         return;
 
                     case ESCURRIDIZO:
-                        cout << "\n🎮 Usando PowerUp: ESCURRIDIZO 🛡️" << endl;
                         actual->activarEscurridizo(3);
                         tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
                         cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
@@ -141,7 +144,6 @@ void Juego::procesarTurno() {
                         break;
 
                     case DOBLE_LINEA:
-                        cout << "\n🎮 Usando PowerUp: DOBLE LÍNEA ➕" << endl;
                         puedeColocarSegundaLinea = true;
                         tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
                         cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
@@ -149,7 +151,6 @@ void Juego::procesarTurno() {
                         break;
 
                     case LLAVE_SECRETA:
-                        cout << "\n🎮 Usando PowerUp: LLAVE SECRETA 🔑" << endl;
                         ignorarBloqueos = true;
                         tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
                         cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
@@ -157,7 +158,6 @@ void Juego::procesarTurno() {
                         break;
 
                     case EXPLOSIVOS: {
-                        cout << "\n🎮 Usando PowerUp: EXPLOSIVOS 💣" << endl;
                         tablero->mostrarPuntosDisponibles();
                         int filaEliminar, columnaEliminar;
                         cout << "Ingrese coordenadas del punto a eliminar (fila columna): ";
@@ -178,7 +178,6 @@ void Juego::procesarTurno() {
                     }
 
                     case NUEVAS_TIERRAS:
-                        cout << "\n🎮 Usando PowerUp: NUEVAS TIERRAS 🌐" << endl;
                         if (tablero->puedeExpandir()) {
                             tablero->expandirTablero();
                             tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
@@ -192,7 +191,7 @@ void Juego::procesarTurno() {
                         break;
 
                     default: {
-                        cout << "\n🎮 Usando PowerUp: " << powerUsado->getTipoString() << " (" << powerUsado->getDescripcion() << ")" << endl;
+                        // Ya se mostró la información del PowerUp anteriormente
                         int fila, columna;
                         char lado;
                         cout << "Ingrese fila, columna y lado para aplicar el PowerUp: ";

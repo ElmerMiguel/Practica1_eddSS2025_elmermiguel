@@ -149,3 +149,19 @@ PowerUp* PowerUp::crearPowerUpAleatorio() {
 PowerUp* PowerUp::crearPowerUp(TipoPowerUp tipo) {
     return new PowerUp(tipo);
 }
+
+PowerUp* PowerUp::crearPowerUpDesdeSimboloCelda(const std::string& simbolo) {
+    if (simbolo == "DL") return new PowerUp(DOBLE_LINEA);
+    if (simbolo == "TS") return new PowerUp(TRAMPA_SECRETA);
+    if (simbolo == "BL") return new PowerUp(BLOQUEO);
+    if (simbolo == "PS") return new PowerUp(PASE);
+    if (simbolo == "LS") return new PowerUp(LLAVE_SECRETA);
+    if (simbolo == "ES") return new PowerUp(ESCURRIDIZO);
+    if (simbolo == "UF") return new PowerUp(UNION_FUTURO);
+    if (simbolo == "AC") return new PowerUp(A_QUE_COSTO);
+    if (simbolo == "NT") return new PowerUp(NUEVAS_TIERRAS);
+    if (simbolo == "EX") return new PowerUp(EXPLOSIVOS);
+    
+    // Si no coincide con ningún símbolo conocido, creamos uno aleatorio como fallback
+    return crearPowerUpAleatorio();
+}

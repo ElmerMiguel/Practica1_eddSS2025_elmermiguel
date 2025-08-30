@@ -61,6 +61,7 @@ public:
     // Factory method para crear PowerUps aleatorios
     static PowerUp* crearPowerUpAleatorio();
     static PowerUp* crearPowerUp(TipoPowerUp tipo);
+    static PowerUp* crearPowerUpDesdeSimboloCelda(const std::string& simbolo);
     
     // Metodos para verificar efectos
     bool afectaLinea(int fila, int columna, char lado) const;

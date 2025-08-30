@@ -122,13 +122,13 @@ void PilaPower::mostrar() {
         return;
     }
     
-    cout << "PowerUps (tope -> base): ";
+    cout << "PowerUps disponibles: ";
     NodoPila* actual = tope;
     while (actual != nullptr) {
-        cout << actual->powerUp->getTipo() << " -> ";
+        cout << actual->powerUp->getSimbolo() << "(" << actual->powerUp->getTipoString() << ") ";
         actual = actual->siguiente;
     }
-    cout << "null" << endl;
+    cout << endl;
 }
 
 PowerUp* PilaPower::extraer(int posicion) {
