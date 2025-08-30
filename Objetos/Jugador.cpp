@@ -104,7 +104,8 @@ void Jugador::activarEscurridizo(int turnos) {
 
 
 void Jugador::registrarCuadrado(int fila, int columna) {
-    totalCuadrados++;
+    // Solo incrementamos los contadores específicos de fila/columna
+    // pero no el contador total, que se calculará de manera más precisa
     cuadradosPorFila[fila]++;
     cuadradosPorColumna[columna]++;
 }
@@ -122,7 +123,16 @@ int Jugador::getCuadradosColumna(int columna) const {
 }
 
 int Jugador::getTotalCuadrados() const {
-    return totalCuadrados;
+    // En lugar de usar el contador totalCuadrados, vamos a contar 
+    // los cuadrados marcados por el jugador en el tablero
+    int total = 0;
+    for (int i = 0; i < 10; i++) {
+        total += cuadradosPorFila[i];
+    }
+    
+    // Nota: Podríamos usar también la suma de cuadrados por columna
+    // pero debemos elegir solo uno para no duplicar
+    return total;
 }
 
 int Jugador::getPowerUpsUsados() const {
@@ -130,8 +140,17 @@ int Jugador::getPowerUpsUsados() const {
 }
 
 void Jugador::calcularIslaMasGrande(Tablero* tablero) {
+    // Como no tenemos acceso directo a los métodos de Tablero debido a inclusiones circulares,
+    // usaremos una implementación simplificada.
+    
+    // Por ahora, simplemente usamos el total de cuadrados calculado por los contadores de fila
+    int totalCuadros = 0;
+    for (int i = 0; i < 10; i++) {
+        totalCuadros += cuadradosPorFila[i];
+    }
+    
     // Implementación básica - puede mejorarse
-    islaMasGrande = totalCuadrados; // Por ahora, asumir que todos están conectados
+    islaMasGrande = totalCuadros; // Por ahora, asumir que todos están conectados
 }
 
 int Jugador::getIslaMasGrande() const {

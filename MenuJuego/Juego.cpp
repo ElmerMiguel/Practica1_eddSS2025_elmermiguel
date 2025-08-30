@@ -88,383 +88,212 @@ void Juego::procesarTurno() {
 
     Jugador *actual = jugadores->frente_cola();
 
-    // Reducir turnos de efectos del jugador actual
-    if (actual->tieneEfectoEscurridizo())
-    {
-        // Se maneja internamente en Jugador
-    }
-
     cout << "\n=== Turno de: " << actual->getNombre()
          << " (" << actual->getInicial() << ") ===" << endl;
 
     mostrarTablero();
     actual->mostrarInfo();
 
-    // Variables para controlar efectos especiales
     bool puedeColocarSegundaLinea = false;
     bool ignorarBloqueos = false;
 
-    // Preguntar si quiere usar un PowerUp
-    if (actual->tienePowerUps())
-    {
+    // -------------------- POWERUPS --------------------
+    if (actual->tienePowerUps()) {
         char usarPower;
         cout << "¿Usar un PowerUp? (s/n): ";
         cin >> usarPower;
 
-        if (usarPower == 's' || usarPower == 'S')
-        {
+        if (usarPower == 's' || usarPower == 'S') {
             actual->mostrarPowerUps();
             PowerUp *powerUsado = actual->usarPowerUp();
-            if (powerUsado != nullptr)
-            {
+
+            if (powerUsado != nullptr) {
                 actual->registrarPowerUpUsado();
 
-                // Manejar efectos especiales según el tipo
-                switch (powerUsado->getTipo())
-                {
-                case PASE:
-                    tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
-                    // Mover al final de la cola
-                    jugadores->encolar(jugadores->desencolar());
-                    delete powerUsado;
-                    tablero->procesarFinTurno();
-                    return; // Terminar turno sin marcar línea
-
-                case ESCURRIDIZO:
-                    actual->activarEscurridizo(3);
-                    tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
-                    break;
-
-                case DOBLE_LINEA:
-                    puedeColocarSegundaLinea = true;
-                    tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
-                    break;
-
-                case LLAVE_SECRETA:
-                    ignorarBloqueos = true;
-                    tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
-                    break;
-
-                
-case EXPLOSIVOS: {
-    cout << "💥 ¡EXPLOSIVOS ACTIVADO!" << endl;
-    
-    // Mostrar puntos disponibles
-    tablero->mostrarPuntosDisponibles();
-    
-    // Pedir coordenadas del punto a eliminar
-    int filaEliminar, columnaEliminar;
-    cout << "Ingrese coordenadas del punto a eliminar (fila columna): ";
-    cin >> filaEliminar >> columnaEliminar;
-    
-    // Validar y eliminar punto
-    if (tablero->puntoEsValido(filaEliminar, columnaEliminar)) {
-        tablero->eliminarPunto(filaEliminar, columnaEliminar);
-        tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
-        cout << "🎯 Explosivos usado exitosamente!" << endl;
-    } else {
-        cout << "❌ Coordenadas inválidas. PowerUp no consumido." << endl;
-        // Devolver el PowerUp al jugador
-        actual->agregarPowerUp(powerUsado);
-        powerUsado = nullptr; // Evitar que se borre
-    }
-    break;
-}
-
-                case NUEVAS_TIERRAS:
-                    if (tablero->puedeExpandir())
-                    {
-                        tablero->expandirTablero();
+                switch (powerUsado->getTipo()) {
+                    case PASE:
+                        cout << "\n🎮 Usando PowerUp: PASE ⏭️" << endl;
                         tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
+                        cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
+                        mostrarTablero();
+                        jugadores->encolar(jugadores->desencolar()); // Terminar turno
+                        delete powerUsado;
+                        tablero->procesarFinTurno();
+                        return;
+
+                    case ESCURRIDIZO:
+                        cout << "\n🎮 Usando PowerUp: ESCURRIDIZO 🛡️" << endl;
+                        actual->activarEscurridizo(3);
+                        tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
+                        cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
+                        mostrarTablero();
+                        break;
+
+                    case DOBLE_LINEA:
+                        cout << "\n🎮 Usando PowerUp: DOBLE LÍNEA ➕" << endl;
+                        puedeColocarSegundaLinea = true;
+                        tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
+                        cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
+                        mostrarTablero();
+                        break;
+
+                    case LLAVE_SECRETA:
+                        cout << "\n🎮 Usando PowerUp: LLAVE SECRETA 🔑" << endl;
+                        ignorarBloqueos = true;
+                        tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
+                        cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
+                        mostrarTablero();
+                        break;
+
+                    case EXPLOSIVOS: {
+                        cout << "\n🎮 Usando PowerUp: EXPLOSIVOS 💣" << endl;
+                        tablero->mostrarPuntosDisponibles();
+                        int filaEliminar, columnaEliminar;
+                        cout << "Ingrese coordenadas del punto a eliminar (fila columna): ";
+                        cin >> filaEliminar >> columnaEliminar;
+
+                        if (tablero->puntoEsValido(filaEliminar, columnaEliminar)) {
+                            tablero->eliminarPunto(filaEliminar, columnaEliminar);
+                            tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
+                            cout << "🎯 Explosivos usado exitosamente!" << endl;
+                            cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
+                            mostrarTablero();
+                        } else {
+                            cout << "❌ Coordenadas inválidas. PowerUp no consumido." << endl;
+                            actual->agregarPowerUp(powerUsado);
+                            powerUsado = nullptr;
+                        }
+                        break;
                     }
-                    else
-                    {
-                        cout << "❌ No se puede expandir más el tablero." << endl;
-                        // Devolver el PowerUp al jugador si no se puede usar
+
+                    case NUEVAS_TIERRAS:
+                        cout << "\n🎮 Usando PowerUp: NUEVAS TIERRAS 🌐" << endl;
+                        if (tablero->puedeExpandir()) {
+                            tablero->expandirTablero();
+                            tablero->usarPowerUp(powerUsado, 0, 0, ' ', actual->getInicial());
+                            cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
+                            mostrarTablero();
+                        } else {
+                            cout << "❌ No se puede expandir más el tablero." << endl;
+                            actual->agregarPowerUp(powerUsado);
+                            powerUsado = nullptr;
+                        }
+                        break;
+
+                    default: {
+                        cout << "\n🎮 Usando PowerUp: " << powerUsado->getTipoString() << " (" << powerUsado->getDescripcion() << ")" << endl;
+                        int fila, columna;
+                        char lado;
+                        cout << "Ingrese fila, columna y lado para aplicar el PowerUp: ";
+                        cin >> fila >> columna >> lado;
+                        tablero->usarPowerUp(powerUsado, fila, columna, lado, actual->getInicial());
+                        cout << "\nEstado del tablero después de usar el PowerUp:" << endl;
+                        mostrarTablero();
+                        break;
+                    }
+                }
+
+                // Manejo seguro de UNION_FUTURO
+                if (powerUsado != nullptr && powerUsado->getTipo() == UNION_FUTURO) {
+                    if (powerUsado->esRecienObtenido()) {
+                        cout << "⏳ UNIÓN A FUTURO no se puede usar inmediatamente." << endl;
                         actual->agregarPowerUp(powerUsado);
-                        powerUsado = nullptr; // Evitar que se borre
+                        powerUsado = nullptr;
+                    } else {
+                        powerUsado->marcarComoViejo();
+                        cout << "\nEstado del tablero después de usar UNIÓN A FUTURO:" << endl;
+                        mostrarTablero();
                     }
-                    break;
-
-                default:
-                {
-                    cout << "Ingrese fila, columna y lado para aplicar el PowerUp: ";
-                    int fila, columna;
-                    char lado;
-                    cin >> fila >> columna >> lado;
-                    tablero->usarPowerUp(powerUsado, fila, columna, lado, actual->getInicial());
-                    break;
-                }
                 }
 
-                delete powerUsado;
+                if (powerUsado != nullptr)
+                    delete powerUsado;
+                
+                // Mostrar efectos activos después de usar PowerUp
+                cout << "\n🔮 Efectos activos actualmente:" << endl;
+                tablero->mostrarEfectosActivos();
             }
-
-
-
-
-            if (powerUsado->getTipo() == UNION_FUTURO && powerUsado->esRecienObtenido()) {
-        cout << "❌ UNIÓN A FUTURO no se puede usar inmediatamente." << endl;
-        cout << "Debe esperar al menos un turno después de obtenerlo." << endl;
-        
-        // Devolver el PowerUp al jugador
-        actual->agregarPowerUp(powerUsado);
-        powerUsado = nullptr; // Evitar que se borre
-    } else {
-        // Marcar PowerUp como viejo si es necesario
-        if (powerUsado->getTipo() == UNION_FUTURO) {
-            powerUsado->marcarComoViejo();
-        }
-        
-        actual->registrarPowerUpUsado();
-
-        // Manejar efectos especiales según el tipo
-        switch (powerUsado->getTipo()) {
-            // ... casos existentes ...
-        }
-
-        if (powerUsado != nullptr) {
-            delete powerUsado;
         }
     }
 
-
-
-
-
-
-        }
-    }
-
-    // Marcar primera línea (o única si no tiene doble línea)
+    // -------------------- MARCAR LÍNEA --------------------
     bool turnoExitoso = false;
-    do
-    {
+    do {
         int fila, columna;
         char lado;
-        cout << "\n🎯 Turno de " << actual->getNombre() << " (" << actual->getInicial() << ")" << endl;
-cout << "📍 Selecciona donde colocar tu línea:" << endl;
-cout << "   Fila (0-" << (tablero->getFilas()-1) << "): ";
-cin >> fila;
-cout << "   Columna (0-" << (tablero->getColumnas()-1) << "): ";  
-cin >> columna;
-cout << "   Dirección [W=↑ A=← S=↓ D=→]: ";
-cin >> lado;
+        cout << "\n📍 Selecciona donde colocar tu línea:" << endl;
+        cout << "   Fila (0-" << (tablero->getFilas()-1) << "): ";
+        cin >> fila;
+        cout << "   Columna (0-" << (tablero->getColumnas()-1) << "): ";
+        cin >> columna;
+        cout << "   Dirección [W=↑ A=← S=↓ D=→]: ";
+        cin >> lado;
 
+        // Normalizar dirección
+        if (lado == 'w' || lado == 'W') lado = 'S';
+        else if (lado == 's' || lado == 'S') lado = 'I';
+        else if (lado == 'a' || lado == 'A') lado = 'L';
+        else if (lado == 'd' || lado == 'D') lado = 'D';
+        else { cout << "❌ Dirección inválida.\n"; continue; }
 
-if (lado == 'w' || lado == 'W') {
-    lado = 'S';  // Superior
-} else if (lado == 's' || lado == 'S') {
-    lado = 'I';  // Inferior
-} else if (lado == 'a' || lado == 'A') {
-    lado = 'L';  // Izquierdo
-} else if (lado == 'd' || lado == 'D') {
-    lado = 'D';  // Derecho
-} else {
-    cout << "❌ Dirección inválida. Use W, A, S, o D." << endl;
-    continue;
-}
-
-
-        // Verificar bloqueos (a menos que tenga llave secreta)
-        if (!ignorarBloqueos && tablero->getGestorPowers()->lineaBloqueada(fila, columna, lado))
-        {
+        // Verificar bloqueos
+        if (!ignorarBloqueos && tablero->getGestorPowers()->lineaBloqueada(fila, columna, lado)) {
             cout << "Esta línea está bloqueada. Intente otra." << endl;
             continue;
         }
 
-        if (tablero->marcarLinea(fila, columna, lado, actual->getInicial()))
-        {
+        if (tablero->marcarLinea(fila, columna, lado, actual, jugadores)) {
             cout << "Línea marcada exitosamente!" << endl;
-            
-            // verificar trampa
-            if (tablero->getGestorPowers()->lineaConTrampa(fila, columna, lado)) {
-                char propietarioTrampa = tablero->getGestorPowers()->obtenerPropietarioTrampa(fila, columna, lado);
-            
-                if (propietarioTrampa != ' ') {
-                    // Verificar protección Escurridizo
-                    if (!tablero->getGestorPowers()->jugadorTieneEscurridizo(actual->getInicial())) {
-                        cout << "💥 ¡TRAMPA ACTIVADA por jugador " << propietarioTrampa << "!" << endl;
-            
-                        // Buscar al trapero y moverlo al frente
-                        Jugador* trapero = nullptr;
-                        int posiciones = 0;
-            
-                        // Contar jugadores y encontrar al trapero
-                        Jugador* busqueda = jugadores->frente_cola();
-                        do {
-                            if (busqueda->getInicial() == propietarioTrampa) {
-                                trapero = busqueda;
-                                break;
-                            }
-                            jugadores->encolar(jugadores->desencolar());
-                            busqueda = jugadores->frente_cola();
-                            posiciones++;
-                        } while (busqueda != actual && posiciones < 10); // Evitar loop infinito
-            
-                        // Mover al trapero al frente (solo si no es el jugador actual)
-                        if (trapero != nullptr && trapero != actual) {
-                            // Extraer al trapero de su posición
-                            Jugador* extraido = jugadores->desencolar();
-            
-                            // Rotar hasta encontrar la posición correcta
-                            while (extraido != trapero && posiciones > 0) {
-                                jugadores->encolar(extraido);
-                                extraido = jugadores->desencolar();
-                                posiciones--;
-                            }
-            
-                            // Poner al trapero al frente después del turno actual
-                            cout << "🎯 " << trapero->getNombre() << " se mueve al frente de la cola!" << endl;
-            
-                            // Mantener al jugador actual al frente por ahora
-                            jugadores->encolar(extraido); // Poner al trapero en segunda posición
-                        } else {
-                            cout << "El trapero ya está jugando o es el jugador actual." << endl;
-                        }
-                    }
-                }
-            }
+
+            // Revisar trampas
+            tablero->procesarTrampa(fila, columna, lado, actual, jugadores);
+
+            // Revisar cuadrado completo y PowerUps
+            tablero->procesarCuadrado(fila, columna, lado, actual);
+
             turnoExitoso = true;
 
-            // Verificar si se completó un cuadrado
-            if (tablero->verificarCuadradoCompleto(fila, columna))
-            {
-                
-                char propietarioPunto = tablero->getGestorPowers()->obtenerPropietarioAQueCosto(fila, columna, lado);
-
-                if (propietarioPunto != ' ')
-                {
-                    // Efecto A Qué Costo activo
-                    cout << "💰 ¡A Qué Costo activado!" << endl;
-
-                    // Buscar al jugador que debe recibir el punto
-                    Jugador *jugadorPunto = nullptr;
-                    Jugador *inicialBusqueda = jugadores->frente_cola();
-                    Jugador *actualBusqueda = inicialBusqueda;
-
-                    do
-                    {
-                        if (actualBusqueda->getInicial() == propietarioPunto)
-                        {
-                            jugadorPunto = actualBusqueda;
-                            break;
-                        }
-                        jugadores->encolar(jugadores->desencolar());
-                        actualBusqueda = jugadores->frente_cola();
-                    } while (actualBusqueda != inicialBusqueda);
-
-                    // Dar punto al propietario original
-                    if (jugadorPunto != nullptr)
-                    {
-                        jugadorPunto->incrementarPuntos();
-                        jugadorPunto->registrarCuadrado(fila, columna);
-                        cout << "   Punto para: " << jugadorPunto->getNombre() << " (" << propietarioPunto << ")" << endl;
-                    }
-
-                    // Dar casilla a quien completó
-                    actual->registrarCuadrado(fila, columna);
-                    Celda *celda = tablero->obtenerCelda(fila, columna);
-                    if (celda != nullptr)
-                    {
-                        celda->setPropietario(actual->getInicial());
-                    }
-                    cout << "   Casilla para: " << actual->getNombre() << " (" << actual->getInicial() << ")" << endl;
-                }
-                else
-                {
-                    // Comportamiento normal
-                    actual->registrarCuadrado(fila, columna);
-
-                    // Asignar propietario a la celda
-                    Celda *celda = tablero->obtenerCelda(fila, columna);
-                    if (celda != nullptr)
-                    {
-                        celda->setPropietario(actual->getInicial());
-                    }
-
-                    // Verificar efectos especiales de puntuación
-                    if (tablero->getGestorPowers()->lineaConUnionFuturo(fila, columna, lado))
-                    {
-                        actual->duplicarUltimoPunto(); // Doble punto
-                    }
-                    else
-                    {
-                        actual->incrementarPuntos();
-                    }
-                }
-
-                cout << "¡Cuadrado completado en (" << fila << "," << columna << ")!" << endl;
-
-                // Verificar si la celda tiene PowerUp
-                Celda *celda = tablero->obtenerCelda(fila, columna);
-                if (celda != nullptr && !celda->getPowerUp().empty())
-                {
-                    cout << "¡Recogiste un PowerUp: " << celda->getPowerUp() << "!" << endl;
-                    PowerUp *nuevoPower = PowerUp::crearPowerUpAleatorio();
-                    actual->agregarPowerUp(nuevoPower);
-                    celda->setPowerUp("");
-
-
-
-                
-    if (nuevoPower->getTipo() == UNION_FUTURO) {
-        nuevoPower->marcarComoReciente();
-        cout << "⏳ UNIÓN A FUTURO debe esperar un turno antes de usarse." << endl;
-    }
-    
-    actual->agregarPowerUp(nuevoPower);
-    celda->setPowerUp("");
-                }
-
-                // El mismo jugador continúa (no se avanza turno)
-            }
-            else
-            {
-                // Avanzar al siguiente jugador
+            // Avanzar turno si no se completó cuadrado
+            if (!tablero->verificarCuadradoCompleto(fila, columna)) {
                 Jugador *jugadorActual = jugadores->desencolar();
                 jugadores->encolar(jugadorActual);
             }
-        }
-        else
-        {
+        } else {
             cout << "Movimiento inválido. Intente de nuevo." << endl;
         }
+
     } while (!turnoExitoso);
 
-    // Si tiene doble línea, permitir segunda línea
-    if (puedeColocarSegundaLinea)
-    {
-        cout << "\n¡LÍNEA ADICIONAL! Puedes marcar otra línea:" << endl;
-
+    // -------------------- DOBLE LÍNEA --------------------
+    if (puedeColocarSegundaLinea) {
+        cout << "\n¡LÍNEA ADICIONAL! Marca otra línea:" << endl;
         int fila2, columna2;
         char lado2;
-        cout << "Ingrese fila, columna y lado para segunda línea: ";
-        cin >> fila2 >> columna2 >> lado2;
+        cout << "   Fila (0-" << (tablero->getFilas()-1) << "): ";
+        cin >> fila2;
+        cout << "   Columna (0-" << (tablero->getColumnas()-1) << "): ";
+        cin >> columna2;
+        cout << "   Dirección [W=↑ A=← S=↓ D=→]: ";
+        cin >> lado2;
 
-        if (tablero->marcarLinea(fila2, columna2, lado2, actual->getInicial()))
-        {
-            cout << "¡Segunda línea marcada!" << endl;
-
-            if (tablero->verificarCuadradoCompleto(fila2, columna2))
-            {
-                
-                actual->registrarCuadrado(fila2, columna2);
-
-                Celda *celda2 = tablero->obtenerCelda(fila2, columna2);
-                if (celda2 != nullptr)
-                {
-                    celda2->setPropietario(actual->getInicial());
-                }
-
-                actual->incrementarPuntos();
-                cout << "¡Segundo cuadrado completado!" << endl;
-            }
+        // Normalizar dirección
+        if (lado2 == 'w' || lado2 == 'W') lado2 = 'S';
+        else if (lado2 == 's' || lado2 == 'S') lado2 = 'I';
+        else if (lado2 == 'a' || lado2 == 'A') lado2 = 'L';
+        else if (lado2 == 'd' || lado2 == 'D') lado2 = 'D';
+        else { 
+            cout << "❌ Dirección inválida. PowerUp desperdiciado.\n"; 
+            return;
         }
+
+        if (tablero->marcarLinea(fila2, columna2, lado2, actual, jugadores)) {
+            cout << "¡Segunda línea marcada!" << endl;
+            tablero->procesarCuadrado(fila2, columna2, lado2, actual);
+        }
+
     }
 
     actual->procesarFinTurnoJugador();
-    // Procesar fin de turno
     tablero->procesarFinTurno();
 }
 
@@ -532,11 +361,22 @@ bool Juego::verificarFinJuego()
         return true;
     }
 
-    // Opción manual para terminar (mantener por ahora para testing)
+    // Opción manual para terminar (solo para testing y depuración)
     char continuar;
     cout << "¿Continuar jugando? (s/n): ";
     cin >> continuar;
-    return (continuar == 'n' || continuar == 'N');
+    
+    if (continuar == 'n' || continuar == 'N') {
+        // Verificar que realmente queremos terminar antes de completar
+        if (!tablero->tableroCompleto()) {
+            char confirmar;
+            cout << "⚠️ El tablero aún no está completo. ¿Seguro que deseas terminar? (s/n): ";
+            cin >> confirmar;
+            return (confirmar == 's' || confirmar == 'S');
+        }
+        return true;
+    }
+    return false;
 }
 
 Jugador *Juego::determinarGanadorCompleto()
@@ -635,6 +475,29 @@ Jugador *Juego::determinarGanadorCompleto()
 void Juego::mostrarEstadisticasFinales()
 {
     cout << "\n═══════ ESTADÍSTICAS FINALES ═══════" << endl;
+    
+    // Mostrar el total de cuadrados en el tablero
+    int totalCuadrosTablero = tablero->getFilas() * tablero->getColumnas();
+    int cuadrosCompletados = 0;
+    int cuadrosPorJugador[128] = {0}; // Usamos un arreglo para contar cuadrados por jugador (ASCII)
+    
+    // Contar cuántos cuadrados están completados realmente y quién es su propietario
+    NodoLista* nodoActual = tablero->getCeldas()->getPrimero();
+    while (nodoActual != nullptr) {
+        if (nodoActual->celda->estaCompleta()) {
+            cuadrosCompletados++;
+            char propietario = nodoActual->celda->getPropietario();
+            if (propietario != ' ') {
+                cuadrosPorJugador[propietario]++;
+            }
+        }
+        nodoActual = nodoActual->siguiente;
+    }
+    
+    cout << "Tablero: " << tablero->getFilas() << "x" << tablero->getColumnas() 
+         << " = " << totalCuadrosTablero << " cuadrados totales" << endl;
+    cout << "Cuadrados completados: " << cuadrosCompletados << "/" << totalCuadrosTablero 
+         << " (" << (cuadrosCompletados*100/totalCuadrosTablero) << "%)" << endl << endl;
 
     if (!jugadores->estaVacia())
     {
@@ -643,9 +506,15 @@ void Juego::mostrarEstadisticasFinales()
 
         do
         {
-            cout << "\n👤 " << actual->getNombre() << " (" << actual->getInicial() << "):" << endl;
+            char inicialJugador = actual->getInicial();
+            int cuadrosCapturados = cuadrosPorJugador[inicialJugador];
+            
+            cout << "\n👤 " << actual->getNombre() << " (" << inicialJugador << "):" << endl;
             cout << "   Puntos: " << actual->getPuntos() << endl;
-            cout << "   Cuadrados totales: " << actual->getTotalCuadrados() << endl;
+            cout << "   Cuadrados capturados: " << cuadrosCapturados 
+                 << " de " << cuadrosCompletados << " (" 
+                 << (cuadrosCompletados > 0 ? (cuadrosCapturados*100/cuadrosCompletados) : 0) 
+                 << "%)" << endl;
             cout << "   PowerUps usados: " << actual->getPowerUpsUsados() << endl;
             cout << "   Isla más grande: " << actual->getIslaMasGrande() << endl;
 

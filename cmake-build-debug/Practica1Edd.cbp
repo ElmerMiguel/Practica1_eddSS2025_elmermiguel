@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Practica1Edd"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Practica1Edd">
+				<Option output="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Practica1Edd.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 Practica1Edd"/>
+					<CompileFile command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Practica1Edd/fast">
+				<Option output="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Practica1Edd.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 Practica1Edd/fast"/>
+					<CompileFile command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Universidad/EDD/EDD XELA/Clion/CLion 2024.1.2/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/MenuJuego/Juego.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/MenuJuego/Juego.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/MenuJuego/MenuPrincipal.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/MenuJuego/MenuPrincipal.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/PTablero/Celda.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/PTablero/Tablero.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/PTablero/Tablero.h">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/main.cpp">
+			<Option target="Practica1Edd"/>
+		</Unit>
+		<Unit filename="D:/Universidad/EDD/ElmerEDD/Practica1_eddSS2025_elmermiguel/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

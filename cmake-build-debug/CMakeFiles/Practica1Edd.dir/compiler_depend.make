@@ -595,18 +595,20 @@ CMakeFiles/Practica1Edd.dir/Estructuras/PilaPower.cpp.o: /home/elmermekel/Docume
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
 
 CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.o: /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/MenuJuego/Juego.cpp \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Tablero.h \
@@ -806,18 +808,20 @@ CMakeFiles/Practica1Edd.dir/MenuJuego/Juego.cpp.o: /home/elmermekel/Documentos/C
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
 
 CMakeFiles/Practica1Edd.dir/MenuJuego/MenuPrincipal.cpp.o: /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/MenuJuego/MenuPrincipal.cpp \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Tablero.h \
@@ -910,6 +914,7 @@ CMakeFiles/Practica1Edd.dir/MenuJuego/MenuPrincipal.cpp.o: /home/elmermekel/Docu
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
+  /usr/include/c++/13/limits \
   /usr/include/c++/13/new \
   /usr/include/c++/13/numbers \
   /usr/include/c++/13/ostream \
@@ -1808,12 +1813,17 @@ CMakeFiles/Practica1Edd.dir/PTablero/Celda.cpp.o: /home/elmermekel/Documentos/Cl
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
 
 CMakeFiles/Practica1Edd.dir/PTablero/Tablero.cpp.o: /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Tablero.cpp \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Tablero.h \
@@ -2013,18 +2023,20 @@ CMakeFiles/Practica1Edd.dir/PTablero/Tablero.cpp.o: /home/elmermekel/Documentos/
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
 
 CMakeFiles/Practica1Edd.dir/main.cpp.o: /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/main.cpp \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
-  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ArregloT.tpp \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ColaC.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/ListaT.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Estructuras/PilaPower.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/GestorPowerUps.h \
+  /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/Jugador.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Celda.h \
   /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/PTablero/Tablero.h \
@@ -2230,6 +2242,8 @@ CMakeFiles/Practica1Edd.dir/main.cpp.o: /home/elmermekel/Documentos/Clion/Practi
 /usr/include/c++/13/ctime:
 
 /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/Objetos/PowerUp.cpp:
+
+/usr/include/c++/13/limits:
 
 /home/elmermekel/Documentos/Clion/Practica1_eddSS2025_elmermiguel/MenuJuego/MenuPrincipal.h:
 

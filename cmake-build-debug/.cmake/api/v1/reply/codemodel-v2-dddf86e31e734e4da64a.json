@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.30"
+						"string" : "3.28.1"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Practica1Edd::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Practica1Edd-Debug-76d666ee92823ff9592e.json",
+					"jsonFile" : "target-Practica1Edd-Debug-fac06c337785553ade17.json",
 					"name" : "Practica1Edd",
 					"projectIndex" : 0
 				}

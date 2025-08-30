@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cctype>
 using namespace std;
+#include <limits>
+
 
 
 MenuPrincipal::MenuPrincipal() : filas(3), columnas(3), numJugadores(2) {}
@@ -55,9 +57,9 @@ void MenuPrincipal::configurarJuego() {
     
     // Configurar tamaño del tablero
     do {
-        cout << "Ingresa el número de filas (mínimo 3): ";
+        cout << "Ingresa el numero de filas (mínimo 3): ";
         cin >> filas;
-        cout << "Ingresa el número de columnas (mínimo 3): ";
+        cout << "Ingresa el numero de columnas (mínimo 3): ";
         cin >> columnas;
         
         if (!validarTamaño(filas, columnas)) {
@@ -84,44 +86,35 @@ void MenuPrincipal::configurarJuego() {
 void MenuPrincipal::configurarJugadores(Juego& juego) {
     cout << "\n═══════ CONFIGURACIÓN DE JUGADORES ═══════" << endl;
     
-    ArregloT<char> inicialesUsadas;  
-    
+    ArregloT<char> inicialesUsadas;
+
     for (int i = 0; i < numJugadores; i++) {
-    string nombre;
-    char inicial;
-    bool inicialValida = false;
-    
-    while (!inicialValida) {
-        cout << "Nombre del jugador " << (i + 1) << ": ";
-        
-        // ARREGLO CLAVE: Limpiar buffer antes de leer nombre
-        if (i > 0 || cin.peek() == '\n') {
-            cin.ignore();
-        }
-        
-        getline(cin, nombre); 
-        
-        if (nombre.empty()) {
-            cout << "❌ El nombre no puede estar vacío." << endl;
-            continue;
-        }
-        
-        inicial = toupper(nombre[0]);
-        
-        
-        inicialValida = true;
-        
-        
-        if (inicialValida) {
+        string nombre;
+        char inicial;
+        bool inicialValida = false;
+
+        // limpiar antes de leer el nombre de cada jugador
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        while (!inicialValida) {
+            cout << "Nombre del jugador " << (i + 1) << ": ";
+            getline(cin, nombre);
+
+            if (nombre.empty()) {
+                cout << "❌ El nombre no puede estar vacío." << endl;
+                continue;
+            }
+
+            inicial = toupper(nombre[0]);
+            inicialValida = true;
+
             cout << "   → " << nombre << " tendrá la inicial '" << inicial << "'" << endl;
-            
             Jugador nuevoJugador(nombre, inicial);
-            juego.agregarJugador(nuevoJugador); 
-            break;
+            juego.agregarJugador(nuevoJugador);
         }
     }
-}
-    
+
+
     cout << "\n✅ Todos los jugadores configurados!" << endl;
 }
 

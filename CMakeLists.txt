@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 3.28.1)
 project(Practica1Edd)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -22,7 +22,7 @@ add_executable(Practica1Edd main.cpp
         PTablero/Tablero.h
         Objetos/GestorPowerUps.cpp
         Objetos/GestorPowerUps.h
-        MenuJuego/MenuPrincipal.cpp
-        MenuJuego/MenuPrincipal.h
         Estructuras/ArregloT.tpp
-        Estructuras/ArregloT.h)
+        Estructuras/ArregloT.h
+        MenuJuego/MenuPrincipal.cpp
+        MenuJuego/MenuPrincipal.h)

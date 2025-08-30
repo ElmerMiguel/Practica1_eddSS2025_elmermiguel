@@ -213,29 +213,7 @@ void GestorPowerUps::activarUnionFuturo(int fila, int columna, char lado, char j
          << ") lado " << lado << " por jugador " << jugador << "!" << endl;
 }
 
-void GestorPowerUps::mostrarEfectosActivos() {
-    if (efectosActivos == nullptr) {
-        cout << "No hay efectos activos en el tablero." << endl;
-        return;
-    }
-    
-    cout << "\n=== EFECTOS ACTIVOS ===" << endl;
-    NodoEfecto* actual = efectosActivos;
-    while (actual != nullptr) {
-        EfectoActivo* efecto = actual->efecto;
-        cout << efecto->powerUp->getSimbolo() << " en (" 
-             << efecto->fila << "," << efecto->columna << ") lado " 
-             << efecto->lado << " - Jugador: " << efecto->jugadorPropietario;
-        if (efecto->turnosRestantes > 0) {
-            cout << " - Turnos restantes: " << efecto->turnosRestantes;
-        } else if (efecto->turnosRestantes == -1) {
-            cout << " - Permanente";
-        }
-        cout << endl;
-        actual = actual->siguiente;
-    }
-    cout << "===================" << endl;
-}
+// La función mostrarEfectosActivos se movió a la línea ~407 con una implementación mejorada
 
 
 
@@ -402,4 +380,71 @@ void GestorPowerUps::activarBloqueo(int fila, int columna, char lado, char jugad
     cout << "🔒 Bloqueo activado en (" << fila << "," << columna 
          << ") lado " << lado << " por " << jugador << endl;
     cout << "Duración: Toda la ronda actual." << endl;
+}
+
+void GestorPowerUps::mostrarEfectosActivos() {
+    if (efectosActivos == nullptr) {
+        cout << "   No hay efectos activos actualmente." << endl;
+        return;
+    }
+    
+    NodoEfecto* actual = efectosActivos;
+    int contador = 0;
+    
+    while (actual != nullptr) {
+        EfectoActivo* efecto = actual->efecto;
+        contador++;
+        
+        cout << "   " << contador << ". ";
+        
+        // Mostrar información según el tipo de efecto
+        switch (efecto->powerUp->getTipo()) {
+            case BLOQUEO:
+                cout << "🔒 BLOQUEO en (" << efecto->fila << "," << efecto->columna 
+                     << ") lado " << efecto->lado 
+                     << " - Dueño: " << efecto->jugadorPropietario
+                     << " - Duración: Hasta fin de ronda" << endl;
+                break;
+                
+            case TRAMPA_SECRETA:
+                cout << "🪤 TRAMPA en (" << efecto->fila << "," << efecto->columna 
+                     << ") lado " << efecto->lado 
+                     << " - Dueño: " << efecto->jugadorPropietario 
+                     << " - Duración: Permanente" << endl;
+                break;
+                
+            case UNION_FUTURO:
+                cout << "🔮 UNIÓN A FUTURO en (" << efecto->fila << "," << efecto->columna 
+                     << ") lado " << efecto->lado 
+                     << " - Dueño: " << efecto->jugadorPropietario
+                     << " - Duración: Hasta completar cuadrado" << endl;
+                break;
+                
+            case ESCURRIDIZO:
+                cout << "🛡️ PROTECCIÓN ESCURRIDIZO para jugador " << efecto->jugadorPropietario
+                     << " - Turnos restantes: " << efecto->turnosRestantes << endl;
+                break;
+                
+            case A_QUE_COSTO:
+                cout << "💰 A QUÉ COSTO en (" << efecto->fila << "," << efecto->columna
+                     << ") lado " << efecto->lado 
+                     << " - Beneficiario: " << efecto->jugadorPropietario
+                     << " - Duración: Hasta usar" << endl;
+                break;
+                
+            default:
+                cout << "⚡ Efecto de tipo " << efecto->powerUp->getTipoString()
+                     << " - Propietario: " << efecto->jugadorPropietario;
+                if (efecto->turnosRestantes > 0) {
+                    cout << " - Turnos restantes: " << efecto->turnosRestantes;
+                } else if (efecto->turnosRestantes == -1) {
+                    cout << " - Duración: Especial";
+                } else {
+                    cout << " - Duración: Permanente";
+                }
+                cout << endl;
+        }
+        
+        actual = actual->siguiente;
+    }
 }

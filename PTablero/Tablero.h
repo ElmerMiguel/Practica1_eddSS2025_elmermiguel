@@ -4,7 +4,9 @@
 #include "../Estructuras/ListaT.h"
 #include "../Objetos/GestorPowerUps.h"
 #include "Celda.h"
-#include "../Estructuras/ArregloT.h" 
+#include "../Estructuras/ArregloT.h"
+#include "../Objetos/Jugador.h"
+#include "../Estructuras/ColaC.h"
 
 class Tablero {
 private:
@@ -24,7 +26,7 @@ public:
     void inicializar();
     void mostrarTablero();
     Celda* obtenerCelda(int fila, int columna);
-    bool marcarLinea(int fila, int columna, char lado, char jugador = ' ');  
+    bool marcarLinea(int fila, int columna, char lado, Jugador* actual, ColaC* jugadores);
     bool verificarCuadradoCompleto(int fila, int columna);
     
     // Metodos para PowerUps
@@ -54,6 +56,11 @@ public:
     void mostrarPuntosDisponibles();
     bool puntoEsValido(int fila, int columna);
     ArregloT<char> obtenerJugadoresAfectados(int fila, int columna);
+
+    // Procesar efectos especiales en un turno
+    void procesarTrampa(int fila, int columna, char lado, Jugador* actual, ColaC* jugadores);
+    void procesarCuadrado(int fila, int columna, char lado, Jugador* actual);
+
 };
 
 #endif
