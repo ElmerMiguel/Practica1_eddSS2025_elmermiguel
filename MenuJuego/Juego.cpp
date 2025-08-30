@@ -1,5 +1,6 @@
 #include "Juego.h"
 #include <iostream>
+#include <limits>
 using namespace std;
 
 Juego::Juego(int filas, int columnas) : juegoTerminado(false)
@@ -100,8 +101,18 @@ void Juego::procesarTurno() {
     // -------------------- POWERUPS --------------------
     if (actual->tienePowerUps()) {
         char usarPower;
-        cout << "¿Usar un PowerUp? (s/n): ";
-        cin >> usarPower;
+        do {
+            cout << "¿Usar un PowerUp? (s/n): ";
+            cin >> usarPower;
+            
+            // Limpiar cualquier entrada adicional
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            
+            // Validar entrada
+            if (usarPower != 's' && usarPower != 'S' && usarPower != 'n' && usarPower != 'N') {
+                cout << "❌ Por favor, responde con 's' o 'n'." << endl;
+            }
+        } while (usarPower != 's' && usarPower != 'S' && usarPower != 'n' && usarPower != 'N');
 
         if (usarPower == 's' || usarPower == 'S') {
             actual->mostrarPowerUps();
@@ -219,13 +230,41 @@ void Juego::procesarTurno() {
     // -------------------- MARCAR LÍNEA --------------------
     bool turnoExitoso = false;
     do {
-        int fila, columna;
-        char lado;
+        int fila = -1, columna = -1;
+        char lado = ' ';
         cout << "\n📍 Selecciona donde colocar tu línea:" << endl;
+        
+        // Validar entrada de fila
         cout << "   Fila (0-" << (tablero->getFilas()-1) << "): ";
-        cin >> fila;
+        if (!(cin >> fila)) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada incorrecta
+            cout << "❌ Por favor, ingresa un número válido para la fila." << endl;
+            continue;
+        }
+        
+        // Validar rango de fila
+        if (fila < 0 || fila >= tablero->getFilas()) {
+            cout << "❌ Número de fila fuera de rango. Debe estar entre 0 y " << (tablero->getFilas()-1) << "." << endl;
+            continue;
+        }
+        
+        // Validar entrada de columna
         cout << "   Columna (0-" << (tablero->getColumnas()-1) << "): ";
-        cin >> columna;
+        if (!(cin >> columna)) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada incorrecta
+            cout << "❌ Por favor, ingresa un número válido para la columna." << endl;
+            continue;
+        }
+        
+        // Validar rango de columna
+        if (columna < 0 || columna >= tablero->getColumnas()) {
+            cout << "❌ Número de columna fuera de rango. Debe estar entre 0 y " << (tablero->getColumnas()-1) << "." << endl;
+            continue;
+        }
+        
+        // Validar dirección
         cout << "   Dirección [W=↑ A=← S=↓ D=→]: ";
         cin >> lado;
 
@@ -267,14 +306,46 @@ void Juego::procesarTurno() {
     // -------------------- DOBLE LÍNEA --------------------
     if (puedeColocarSegundaLinea) {
         cout << "\n¡LÍNEA ADICIONAL! Marca otra línea:" << endl;
-        int fila2, columna2;
-        char lado2;
-        cout << "   Fila (0-" << (tablero->getFilas()-1) << "): ";
-        cin >> fila2;
-        cout << "   Columna (0-" << (tablero->getColumnas()-1) << "): ";
-        cin >> columna2;
-        cout << "   Dirección [W=↑ A=← S=↓ D=→]: ";
-        cin >> lado2;
+        int fila2 = -1, columna2 = -1;
+        char lado2 = ' ';
+        bool entradaValida = false;
+        
+        do {
+            // Validar entrada de fila
+            cout << "   Fila (0-" << (tablero->getFilas()-1) << "): ";
+            if (!(cin >> fila2)) {
+                cin.clear(); // Limpiar el estado de error
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada incorrecta
+                cout << "❌ Por favor, ingresa un número válido para la fila." << endl;
+                continue;
+            }
+            
+            // Validar rango de fila
+            if (fila2 < 0 || fila2 >= tablero->getFilas()) {
+                cout << "❌ Número de fila fuera de rango. Debe estar entre 0 y " << (tablero->getFilas()-1) << "." << endl;
+                continue;
+            }
+            
+            // Validar entrada de columna
+            cout << "   Columna (0-" << (tablero->getColumnas()-1) << "): ";
+            if (!(cin >> columna2)) {
+                cin.clear(); // Limpiar el estado de error
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada incorrecta
+                cout << "❌ Por favor, ingresa un número válido para la columna." << endl;
+                continue;
+            }
+            
+            // Validar rango de columna
+            if (columna2 < 0 || columna2 >= tablero->getColumnas()) {
+                cout << "❌ Número de columna fuera de rango. Debe estar entre 0 y " << (tablero->getColumnas()-1) << "." << endl;
+                continue;
+            }
+            
+            // Validar dirección
+            cout << "   Dirección [W=↑ A=← S=↓ D=→]: ";
+            cin >> lado2;
+            entradaValida = true;
+        } while (!entradaValida);
 
         // Normalizar dirección
         if (lado2 == 'w' || lado2 == 'W') lado2 = 'S';

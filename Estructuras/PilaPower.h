@@ -30,6 +30,8 @@ public:
     bool estaVacia();
     void mostrar();
     int getTamaño() const { return tamaño; }
+    PowerUp* extraer(int posicion); // Extraer un PowerUp específico por posición (1-based)
+    NodoPila* getTope() const { return tope; } // Acceder al tope para iterar (para interfaz de selección)
 };
 
 #endif

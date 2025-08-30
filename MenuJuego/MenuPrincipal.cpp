@@ -1,8 +1,9 @@
 #include "MenuPrincipal.h"
 #include <iostream>
 #include <cctype>
-using namespace std;
 #include <limits>
+#include <string>
+using namespace std;
 
 
 
@@ -21,7 +22,7 @@ void MenuPrincipal::mostrarBienvenida() {
 }
 
 void MenuPrincipal::mostrarMenu() {
-    int opcion;
+    int opcion = 0;
     
     do {
         cout << "\n═══════ MENÚ PRINCIPAL ═══════" << endl;
@@ -30,7 +31,13 @@ void MenuPrincipal::mostrarMenu() {
         cout << "3. Ver PowerUps disponibles" << endl;
         cout << "4. Salir" << endl;
         cout << "Selecciona una opción: ";
-        cin >> opcion;
+        
+        if (!(cin >> opcion)) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada incorrecta
+            cout << "❌ Por favor, ingresa un número válido." << endl;
+            continue;
+        }
         
         switch(opcion) {
             case 1:
@@ -58,9 +65,22 @@ void MenuPrincipal::configurarJuego() {
     // Configurar tamaño del tablero
     do {
         cout << "Ingresa el numero de filas (mínimo 3): ";
-        cin >> filas;
+        if (!(cin >> filas)) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada incorrecta
+            cout << "❌ Por favor, ingresa un número válido." << endl;
+            filas = 0; // Invalidar el valor para que el bucle continúe
+            continue;
+        }
+        
         cout << "Ingresa el numero de columnas (mínimo 3): ";
-        cin >> columnas;
+        if (!(cin >> columnas)) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada incorrecta
+            cout << "❌ Por favor, ingresa un número válido." << endl;
+            columnas = 0; // Invalidar el valor para que el bucle continúe
+            continue;
+        }
         
         if (!validarTamaño(filas, columnas)) {
             cout << "❌ Tamaño inválido. Mínimo 3x3." << endl;
@@ -70,7 +90,13 @@ void MenuPrincipal::configurarJuego() {
     // Configurar número de jugadores
     do {
         cout << "Ingresa el número de jugadores (2-4): ";
-        cin >> numJugadores;
+        if (!(cin >> numJugadores)) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada incorrecta
+            cout << "❌ Por favor, ingresa un número válido." << endl;
+            numJugadores = 0; // Invalidar el valor para que el bucle continúe
+            continue;
+        }
         
         if (numJugadores < 2 || numJugadores > 4) {
             cout << "❌ Número de jugadores debe estar entre 2 y 4." << endl;

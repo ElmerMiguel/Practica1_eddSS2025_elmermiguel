@@ -130,3 +130,37 @@ void PilaPower::mostrar() {
     }
     cout << "null" << endl;
 }
+
+PowerUp* PilaPower::extraer(int posicion) {
+    if (estaVacia() || posicion < 1 || posicion > tamaño) {
+        return nullptr;
+    }
+    
+    PowerUp* resultado = nullptr;
+    
+    // Caso especial: extraer el tope (posición 1)
+    if (posicion == 1) {
+        resultado = pop();
+        return resultado;
+    }
+    
+    // Para cualquier otra posición, necesitamos recorrer la pila
+    NodoPila* actual = tope;
+    NodoPila* anterior = nullptr;
+    
+    // Recorrer hasta la posición deseada
+    for (int i = 1; i < posicion && actual != nullptr; i++) {
+        anterior = actual;
+        actual = actual->siguiente;
+    }
+    
+    // Si llegamos al nodo correcto
+    if (actual != nullptr && anterior != nullptr) {
+        resultado = actual->powerUp;
+        anterior->siguiente = actual->siguiente;
+        delete actual;
+        tamaño--;
+    }
+    
+    return resultado;
+}

@@ -1,5 +1,6 @@
 #include "Jugador.h"
 #include <iostream>
+#include <limits>
 using namespace std;
 
 Jugador::Jugador(const string& nombre, char inicial) : nombre(nombre), inicial(inicial), puntos(0), 
@@ -56,7 +57,52 @@ void Jugador::agregarPowerUp(PowerUp* power) {
 }
 
 PowerUp* Jugador::usarPowerUp() {
-    return poderes->pop();
+    if (!tienePowerUps()) {
+        cout << "❌ No tienes PowerUps para usar." << endl;
+        return nullptr;
+    }
+    
+    // Si solo hay un PowerUp disponible, úsalo automáticamente
+    if (poderes->getTamaño() == 1) {
+        return poderes->pop();
+    }
+    
+    // Si hay varios PowerUps, permite seleccionar uno con validación
+    cout << "\nSelecciona un PowerUp para usar:" << endl;
+    
+    // Mostrar PowerUps disponibles con índice
+    NodoPila* actual = poderes->getTope();
+    int index = 1;
+    while (actual != nullptr) {
+        cout << index << ". " << actual->powerUp->getTipoString() << " - " << actual->powerUp->getDescripcion() << endl;
+        actual = actual->siguiente;
+        index++;
+    }
+    
+    // Solicitar selección con validación
+    int seleccion = 0;
+    bool entradaValida = false;
+    
+    do {
+        cout << "Número de PowerUp (1-" << poderes->getTamaño() << "): ";
+        if (!(cin >> seleccion)) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada incorrecta
+            cout << "❌ Por favor, ingresa un número válido." << endl;
+            continue;
+        }
+        
+        // Validar rango
+        if (seleccion < 1 || seleccion > poderes->getTamaño()) {
+            cout << "❌ Número fuera de rango. Debe estar entre 1 y " << poderes->getTamaño() << "." << endl;
+            continue;
+        }
+        
+        entradaValida = true;
+    } while (!entradaValida);
+    
+    // Extraer el PowerUp seleccionado
+    return poderes->extraer(seleccion);
 }
 
 bool Jugador::tienePowerUps() const {
